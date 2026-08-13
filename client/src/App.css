@@ -1,0 +1,74 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* GLOBAL MOBILE RESPONSIVENESS OVERRIDES */
+
+/* Fix the Bento Grid on Home & About */
+@media (max-width: 768px) {
+  div[style*="gridTemplateColumns: repeat(auto-fit, minmax(300px, 1fr))"] {
+    grid-template-columns: 1fr !important;
+  }
+  
+  /* Fix the Split Contact Form */
+  div[style*="gridTemplateColumns: 1fr 2fr"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Fix the Story Grid on About Page */
+  div[style*="gridTemplateColumns: 1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Shrink Massive Headings for Mobile */
+  h1 {
+    line-height: 1.1 !important;
+  }
+
+  /* Adjust padding for mobile sections */
+  section {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+  
+  /* Make horizontal scrolling product cards smaller */
+  div[style*="width: 450px"] {
+    width: 300px !important;
+  }
+}
