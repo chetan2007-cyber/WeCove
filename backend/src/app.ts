@@ -8,16 +8,24 @@ import { errorHandler } from './middleware/errorHandler';
 
 const app = express();
 
+// Trust reverse proxy (required on Render / Vercel / Nginx for express-rate-limit)
+app.set('trust proxy', 1);
+
 // Security headers
 app.use(helmet());
 
 // CORS configuration
+const extraOrigins = config.frontendUrl
+  .split(',')
+  .map((url) => url.trim().replace(/\/+$/, ''))
+  .filter(Boolean);
+
 const allowedOrigins = [
   'http://localhost:3000',
   'http://127.0.0.1:3000',
   'https://wecove.in',
   'https://www.wecove.in',
-  config.frontendUrl,
+  ...extraOrigins,
 ];
 
 app.use(
@@ -25,7 +33,8 @@ app.use(
     origin: (origin, callback) => {
       // Allow requests with no origin (like mobile apps, curl, or same-origin)
       if (!origin) return callback(null, true);
-      if (allowedOrigins.indexOf(origin) !== -1 || process.env.NODE_ENV !== 'production') {
+      const normalizedOrigin = origin.replace(/\/+$/, '');
+      if (allowedOrigins.includes(normalizedOrigin) || process.env.NODE_ENV !== 'production') {
         callback(null, true);
       } else {
         callback(new Error('Blocked by CORS policy'));

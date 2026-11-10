@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
 const dotenv = require('dotenv');
 
@@ -65,6 +66,17 @@ module.exports = (env, argv) => {
         template: './public/index.html',
         filename: 'index.html',
         favicon: path.resolve(__dirname, 'public/favicon.ico'),
+      }),
+      new CopyWebpackPlugin({
+        patterns: [
+          {
+            from: 'public',
+            to: '',
+            globOptions: {
+              ignore: ['**/index.html', '**/favicon.ico'],
+            },
+          },
+        ],
       }),
       new webpack.DefinePlugin({
         'process.env.REACT_APP_API_URL': JSON.stringify(process.env.REACT_APP_API_URL || ''),
