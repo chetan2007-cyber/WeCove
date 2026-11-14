@@ -31,7 +31,7 @@ const processPhases = [
     ],
     deliverables: ['Product Discovery Brief', 'Feasibility Assessment', 'Milestone Schedule'],
     icon: Compass,
-    accent: '#CCFF00',
+    accent: '#6F4E37',
   },
   {
     step: '02',
@@ -46,7 +46,7 @@ const processPhases = [
     ],
     deliverables: ['Architecture RFC', 'Prisma Schema Blueprint', 'API Endpoint Contract'],
     icon: FileCode,
-    accent: '#38BDF8',
+    accent: '#8B5E3C',
   },
   {
     step: '03',
@@ -61,7 +61,7 @@ const processPhases = [
     ],
     deliverables: ['Figma Master Component Library', 'Interactive Clickable Prototype', 'Design Token Spec'],
     icon: Layout,
-    accent: '#10B981',
+    accent: '#553B2A',
   },
   {
     step: '04',
@@ -76,7 +76,7 @@ const processPhases = [
     ],
     deliverables: ['Full-Stack TypeScript Repository', 'Automated Test Suites', 'Staging Environment Build'],
     icon: Wrench,
-    accent: '#F59E0B',
+    accent: '#6F4E37',
   },
   {
     step: '05',
@@ -91,7 +91,7 @@ const processPhases = [
     ],
     deliverables: ['Production Release Build', 'Lighthouse Audit Report', 'SSL Certificate & Edge Routing'],
     icon: Rocket,
-    accent: '#EC4899',
+    accent: '#8B5E3C',
   },
   {
     step: '06',
@@ -106,51 +106,51 @@ const processPhases = [
     ],
     deliverables: ['Monthly Telemetry Reports', 'Iterative Feature Sprints', 'Dedicated Dev Support SLA'],
     icon: TrendingUp,
-    accent: '#8B5CF6',
+    accent: '#553B2A',
   },
 ];
 
 export const ProcessPage: React.FC = () => {
   return (
-    <div className="py-16 md:py-24 bg-[#08090C] text-white">
+    <div className="py-16 md:py-24 bg-[#FAF9F6] text-[#1F1D1B]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Page Header */}
         <div className="max-w-3xl mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#CCFF00] mb-4">
-            <Flame className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#E6E0F0] border border-[#D5CBE5] text-xs font-mono text-[#6F4E37] font-semibold mb-4">
+            <Flame className="w-3.5 h-3.5 text-[#6F4E37]" />
             <span>ENGINEERING METHODOLOGY</span>
           </div>
-          <h1 className="text-4xl sm:text-6xl font-black tracking-tight text-white mb-6 uppercase">
+          <h1 className="text-4xl sm:text-6xl font-serif tracking-tight text-[#1F1D1B] mb-6 leading-tight">
             From the first conversation <br />
-            <span className="text-[#CCFF00]">to the final release.</span>
+            <span className="italic text-[#6F4E37]">to the final release.</span>
           </h1>
-          <p className="text-base sm:text-xl text-brand-muted leading-relaxed font-sans">
+          <p className="text-base sm:text-xl text-[#5A5550] leading-relaxed font-sans">
             We don't believe in chaotic development cycles or vague promises. Our engineering methodology is a
             disciplined, milestone-driven process engineered to deliver high-performance software on schedule.
           </p>
         </div>
 
         {/* Communication Cadence Banner */}
-        <div className="p-6 sm:p-8 rounded-2xl bg-[#111319] border border-white/10 mb-16 grid grid-cols-1 md:grid-cols-3 gap-6 text-xs">
+        <div className="p-6 sm:p-8 rounded-3xl bg-[#F4F3F1] border border-[#E5E4E2] mb-16 grid grid-cols-1 md:grid-cols-3 gap-6 text-xs">
           <div className="flex items-start gap-3">
-            <Clock className="w-5 h-5 text-[#CCFF00] flex-shrink-0 mt-0.5" />
+            <Clock className="w-5 h-5 text-[#6F4E37] flex-shrink-0 mt-0.5" />
             <div>
-              <div className="font-bold text-white text-sm mb-1">Weekly Sprint Demos</div>
-              <p className="text-gray-400">Regular async video walkthroughs and live staging previews at every milestone.</p>
+              <div className="font-bold text-[#1F1D1B] text-sm mb-1 font-sans">Weekly Sprint Demos</div>
+              <p className="text-[#5A5550] font-sans">Regular async video walkthroughs and live staging previews at every milestone.</p>
             </div>
           </div>
           <div className="flex items-start gap-3">
-            <MessageSquare className="w-5 h-5 text-[#CCFF00] flex-shrink-0 mt-0.5" />
+            <MessageSquare className="w-5 h-5 text-[#6F4E37] flex-shrink-0 mt-0.5" />
             <div>
-              <div className="font-bold text-white text-sm mb-1">Direct Founder Communication</div>
-              <p className="text-gray-400">Collaborate directly with our engineering founders without bureaucratic account managers.</p>
+              <div className="font-bold text-[#1F1D1B] text-sm mb-1 font-sans">Direct Founder Communication</div>
+              <p className="text-[#5A5550] font-sans">Collaborate directly with our engineering founders without bureaucratic account managers.</p>
             </div>
           </div>
           <div className="flex items-start gap-3">
-            <ShieldCheck className="w-5 h-5 text-[#CCFF00] flex-shrink-0 mt-0.5" />
+            <ShieldCheck className="w-5 h-5 text-[#6F4E37] flex-shrink-0 mt-0.5" />
             <div>
-              <div className="font-bold text-white text-sm mb-1">Complete IP & Code Ownership</div>
-              <p className="text-gray-400">You retain 100% intellectual property ownership of your source code and database assets.</p>
+              <div className="font-bold text-[#1F1D1B] text-sm mb-1 font-sans">Complete IP & Code Ownership</div>
+              <p className="text-[#5A5550] font-sans">You retain 100% intellectual property ownership of your source code and database assets.</p>
             </div>
           </div>
         </div>
@@ -162,38 +162,33 @@ export const ProcessPage: React.FC = () => {
             return (
               <div
                 key={phase.step}
-                className="p-6 sm:p-10 rounded-3xl bg-[#101217] border border-white/10 hover:border-white/20 transition-all relative overflow-hidden"
+                className="p-6 sm:p-10 rounded-3xl bg-[#FFFFFF] border border-[#E5E4E2] hover:border-[#6F4E37]/30 transition-all relative overflow-hidden shadow-sm"
               >
                 <div
-                  className="absolute top-0 left-0 bottom-0 w-1 sm:w-1.5"
-                  style={{ backgroundColor: phase.accent }}
+                  className="absolute top-0 left-0 bottom-0 w-1.5 bg-[#6F4E37]"
                 />
 
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start pl-2 sm:pl-4">
                   {/* Left Column (7 cols) */}
                   <div className="lg:col-span-7 space-y-4">
                     <div className="flex items-center gap-3">
-                      <span
-                        className="px-2.5 py-1 rounded bg-white/5 font-mono text-xs font-bold"
-                        style={{ color: phase.accent }}
-                      >
+                      <span className="px-3 py-1 rounded-full bg-[#E6E0F0] font-mono text-xs font-bold text-[#6F4E37]">
                         STAGE {phase.step}
                       </span>
-                      <span className="text-xs font-mono text-gray-500">{phase.duration}</span>
+                      <span className="text-xs font-mono text-[#8C847E]">{phase.duration}</span>
                     </div>
 
-                    <h2 className="text-2xl sm:text-3xl font-extrabold text-white flex items-center gap-2">
+                    <h2 className="text-2xl sm:text-3xl font-serif text-[#1F1D1B] flex items-center gap-2">
                       <span>{phase.name}</span>
                     </h2>
 
-                    <p className="text-sm sm:text-base text-gray-300 font-medium">{phase.summary}</p>
+                    <p className="text-sm sm:text-base text-[#3A3530] font-medium font-sans">{phase.summary}</p>
 
                     <div className="space-y-2 pt-2">
                       {phase.details.map((detail, idx) => (
-                        <div key={idx} className="flex items-start gap-2.5 text-xs text-brand-muted">
+                        <div key={idx} className="flex items-start gap-2.5 text-xs text-[#5A5550] font-sans">
                           <CheckCircle2
-                            className="w-4 h-4 flex-shrink-0 mt-0.5"
-                            style={{ color: phase.accent }}
+                            className="w-4 h-4 flex-shrink-0 mt-0.5 text-[#6F4E37]"
                           />
                           <span>{detail}</span>
                         </div>
@@ -202,26 +197,23 @@ export const ProcessPage: React.FC = () => {
                   </div>
 
                   {/* Right Deliverables Column (5 cols) */}
-                  <div className="lg:col-span-5 bg-black/40 border border-white/5 rounded-2xl p-6">
-                    <div className="text-xs font-mono uppercase tracking-wider text-gray-400 mb-3 flex items-center gap-1.5">
-                      <Icon className="w-4 h-4" style={{ color: phase.accent }} />
+                  <div className="lg:col-span-5 bg-[#FAF9F6] border border-[#E5E4E2] rounded-2xl p-6">
+                    <div className="text-xs font-mono uppercase tracking-wider text-[#6F4E37] mb-3 flex items-center gap-1.5 font-bold">
+                      <Icon className="w-4 h-4 text-[#6F4E37]" />
                       <span>Stage Deliverables</span>
                     </div>
-                    <ul className="space-y-2.5 text-xs text-gray-300">
+                    <ul className="space-y-2.5 text-xs text-[#5A5550]">
                       {phase.deliverables.map((item, idx) => (
-                        <li key={idx} className="flex items-center gap-2">
-                          <span
-                            className="w-1.5 h-1.5 rounded-full"
-                            style={{ backgroundColor: phase.accent }}
-                          />
-                          <span className="font-mono">{item}</span>
+                        <li key={idx} className="flex items-center gap-2 font-sans">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#6F4E37]" />
+                          <span className="font-mono text-[#3A3530]">{item}</span>
                         </li>
                       ))}
                     </ul>
 
-                    <div className="pt-4 mt-6 border-t border-white/5 flex items-center justify-between text-[11px] font-mono text-gray-500">
+                    <div className="pt-4 mt-6 border-t border-[#E5E4E2] flex items-center justify-between text-[11px] font-mono text-[#8C847E]">
                       <span>Milestone Sign-off</span>
-                      <span className="text-emerald-400">Strict Quality Gate</span>
+                      <span className="text-[#6F4E37] font-semibold">Strict Quality Gate</span>
                     </div>
                   </div>
                 </div>
@@ -231,16 +223,16 @@ export const ProcessPage: React.FC = () => {
         </div>
 
         {/* Bottom CTA */}
-        <div className="mt-20 p-8 sm:p-12 rounded-3xl bg-gradient-to-r from-[#141620] via-[#101217] to-[#141620] border border-white/10 text-center">
-          <h3 className="text-2xl sm:text-4xl font-extrabold text-white mb-4">
+        <div className="mt-20 p-8 sm:p-12 rounded-3xl bg-[#1F1D1B] text-white border border-[#3A3530] text-center shadow-lg">
+          <h3 className="text-2xl sm:text-4xl font-serif text-white mb-4">
             Ready to initiate Stage 01?
           </h3>
-          <p className="text-sm sm:text-base text-brand-muted max-w-xl mx-auto mb-8 font-sans">
+          <p className="text-sm sm:text-base text-[#D1CFCC] max-w-xl mx-auto mb-8 font-sans">
             Schedule an initial discovery conversation with our engineering founders to review your project scope.
           </p>
           <Link
             to="/contact"
-            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-[#CCFF00] text-[#08090C] hover:bg-[#BCE800] font-bold text-xs transition-all shadow-lg shadow-[#CCFF00]/15"
+            className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-[#6F4E37] text-[#FAF9F6] hover:bg-[#8B5E3C] font-semibold text-xs tracking-wider uppercase transition-all shadow-md font-sans"
           >
             <span>START DISCOVERY CONVERSATION</span>
             <ArrowUpRight className="w-4 h-4" />

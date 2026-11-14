@@ -28,14 +28,14 @@ import { TeamSection } from '../components/TeamSection';
 
 export const HomePage: React.FC = () => {
   return (
-    <div className="relative overflow-hidden">
+    <div className="relative overflow-hidden bg-[#FAF9F6]">
       {/* SECTION 2 — HERO */}
       <section className="relative min-h-[92vh] flex flex-col justify-center pt-8 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
         {/* Subtle 3D background */}
         <HeroCanvas />
 
         {/* Ambient Top Glow */}
-        <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[700px] h-[300px] bg-[#CCFF00]/10 blur-[160px] pointer-events-none rounded-full" />
+        <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[700px] h-[300px] bg-[#E6E0F0]/70 blur-[160px] pointer-events-none rounded-full" />
 
         <div className="max-w-7xl mx-auto w-full relative z-10">
           <div className="text-center max-w-4xl mx-auto pt-6 pb-12">
@@ -44,9 +44,9 @@ export const HomePage: React.FC = () => {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#CCFF00] mb-6 backdrop-blur-md"
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#E6E0F0] border border-[#D5CBE5] text-xs font-mono text-[#6F4E37] font-semibold mb-6 backdrop-blur-md"
             >
-              <span className="w-2 h-2 rounded-full bg-[#CCFF00] animate-pulse" />
+              <span className="w-2 h-2 rounded-full bg-[#6F4E37] animate-pulse" />
               <span>DIGITAL PRODUCT STUDIO & SOFTWARE ENGINEERING</span>
             </motion.div>
 
@@ -55,10 +55,10 @@ export const HomePage: React.FC = () => {
               initial={{ opacity: 0, y: 25 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-              className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight text-white uppercase leading-[1.05] mb-6"
+              className="text-4xl sm:text-6xl md:text-7xl font-serif tracking-tight text-[#1F1D1B] leading-[1.08] mb-6"
             >
               We turn ideas <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-[#CCFF00] to-white">
+              <span className="italic text-[#6F4E37]">
                 into digital products.
               </span>
             </motion.h1>
@@ -68,7 +68,7 @@ export const HomePage: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
-              className="text-base sm:text-xl text-brand-muted max-w-2xl mx-auto leading-relaxed mb-8 font-sans"
+              className="text-base sm:text-xl text-[#5A5550] max-w-2xl mx-auto leading-relaxed mb-8 font-sans"
             >
               WeCove.in designs and builds websites, applications, SaaS platforms, and custom software for businesses
               ready to build something meaningful.
@@ -83,14 +83,14 @@ export const HomePage: React.FC = () => {
             >
               <Link
                 to="/contact"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-[#CCFF00] text-[#08090C] hover:bg-[#BCE800] font-bold text-sm tracking-wide transition-all shadow-xl shadow-[#CCFF00]/20"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-[#6F4E37] hover:bg-[#553B2A] text-[#FAF9F6] font-semibold text-xs tracking-wider uppercase transition-all shadow-md font-sans"
               >
                 <span>START A PROJECT</span>
                 <ArrowUpRight className="w-4 h-4" />
               </Link>
               <Link
                 to="/services"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-white/5 hover:bg-white/10 text-white font-medium text-sm transition-all border border-white/10"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-[#E5E4E2] hover:bg-[#E6E0F0] text-[#1F1D1B] font-semibold text-xs tracking-wider uppercase transition-all border border-[#D5D3CF] font-sans"
               >
                 <span>EXPLORE WHAT WE DO</span>
                 <ArrowUpRight className="w-4 h-4" />
@@ -102,24 +102,24 @@ export const HomePage: React.FC = () => {
           <ProductCanvas />
 
           {/* Scroll Cue */}
-          <div className="flex justify-center mt-12 text-gray-500">
+          <div className="flex justify-center mt-12 text-[#8C847E]">
             <div className="flex flex-col items-center gap-2 text-[11px] font-mono tracking-widest uppercase">
               <span>Scroll to Explore</span>
-              <ArrowDown className="w-3.5 h-3.5 animate-bounce text-[#CCFF00]" />
+              <ArrowDown className="w-3.5 h-3.5 animate-bounce text-[#6F4E37]" />
             </div>
           </div>
         </div>
       </section>
 
       {/* SECTION 3 — INTRODUCTION */}
-      <section className="py-24 bg-[#0B0C10] text-white border-t border-white/5 relative">
+      <section className="py-24 bg-[#FAF5F2] text-[#1F1D1B] border-t border-[#E5E4E2] relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center mb-16">
-            <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white mb-6 leading-tight">
+            <h2 className="text-3xl sm:text-5xl font-serif tracking-tight text-[#1F1D1B] mb-6 leading-tight">
               Good software starts with the right idea.{' '}
-              <span className="text-[#CCFF00]">Great software takes the right execution.</span>
+              <span className="italic text-[#6F4E37]">Great software takes the right execution.</span>
             </h2>
-            <p className="text-base sm:text-xl text-brand-muted leading-relaxed">
+            <p className="text-base sm:text-xl text-[#5A5550] leading-relaxed font-sans">
               "We bring product thinking, thoughtful design, and practical engineering together to build digital
               experiences around real business needs."
             </p>
@@ -133,48 +133,47 @@ export const HomePage: React.FC = () => {
                 title: 'IDEA',
                 desc: 'Uncovering the authentic user need, defining scope, and mapping technical feasibility.',
                 icon: Lightbulb,
-                accent: '#CCFF00',
+                accent: '#6F4E37',
               },
               {
                 step: '02',
                 title: 'DESIGN',
                 desc: 'Refining information architecture, design systems, ergonomics, and interactive flows.',
                 icon: Palette,
-                accent: '#38BDF8',
+                accent: '#8B5E3C',
               },
               {
                 step: '03',
                 title: 'ENGINEERING',
                 desc: 'Writing clean, typed, modular code with robust APIs, test coverage, and PostgreSQL data durability.',
                 icon: Wrench,
-                accent: '#10B981',
+                accent: '#553B2A',
               },
               {
                 step: '04',
                 title: 'PRODUCT',
                 desc: 'Launching stable, high-throughput digital platforms that drive real customer outcomes and scale gracefully.',
                 icon: Rocket,
-                accent: '#F59E0B',
+                accent: '#6F4E37',
               },
-            ].map((item, index) => {
+            ].map((item) => {
               const Icon = item.icon;
               return (
                 <div
                   key={item.title}
-                  className="p-6 rounded-2xl bg-[#12141C] border border-white/10 hover:border-white/20 transition-all relative overflow-hidden group"
+                  className="p-6 rounded-3xl bg-[#FFFFFF] border border-[#E5E4E2] hover:border-[#6F4E37]/30 transition-all relative overflow-hidden group shadow-sm"
                 >
                   <div
-                    className="absolute top-0 left-0 right-0 h-1 transition-all"
-                    style={{ backgroundColor: item.accent }}
+                    className="absolute top-0 left-0 right-0 h-1 transition-all bg-[#6F4E37]"
                   />
                   <div className="flex items-center justify-between mb-4">
-                    <span className="font-mono text-xs font-bold" style={{ color: item.accent }}>
+                    <span className="font-mono text-xs font-bold text-[#6F4E37]">
                       STEP {item.step}
                     </span>
-                    <Icon className="w-5 h-5 text-gray-400 group-hover:text-white transition-colors" />
+                    <Icon className="w-5 h-5 text-[#8C847E] group-hover:text-[#6F4E37] transition-colors" />
                   </div>
-                  <h3 className="text-xl font-black tracking-tight text-white mb-2">{item.title}</h3>
-                  <p className="text-xs text-gray-400 leading-relaxed">{item.desc}</p>
+                  <h3 className="text-xl font-serif text-[#1F1D1B] mb-2">{item.title}</h3>
+                  <p className="text-xs text-[#6A635E] leading-relaxed font-sans">{item.desc}</p>
                 </div>
               );
             })}
@@ -201,36 +200,36 @@ export const HomePage: React.FC = () => {
       <TeamSection />
 
       {/* SECTION 10 — FINAL CTA */}
-      <section className="py-28 bg-gradient-to-b from-[#090A0D] to-[#050608] text-white border-t border-white/5 relative overflow-hidden">
+      <section className="py-28 bg-[#1F1D1B] text-[#FAF9F6] border-t border-[#3A3530] relative overflow-hidden">
         {/* Visual Accent */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[300px] bg-[#CCFF00]/10 blur-[160px] pointer-events-none rounded-full" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[300px] bg-[#6F4E37]/20 blur-[160px] pointer-events-none rounded-full" />
 
         <div className="max-w-4xl mx-auto px-4 text-center relative z-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#CCFF00] mb-6">
-            <Sparkles className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/15 text-xs font-mono text-[#E6E0F0] mb-6">
+            <Sparkles className="w-3.5 h-3.5 text-[#E6E0F0]" />
             <span>LET'S BUILD SOMETHING EXTRAORDINARY</span>
           </div>
 
-          <h2 className="text-4xl sm:text-6xl font-black tracking-tight text-white uppercase mb-6 leading-tight">
+          <h2 className="text-4xl sm:text-6xl font-serif text-white mb-6 leading-tight">
             Have something <br />
-            <span className="text-[#CCFF00]">worth building?</span>
+            <span className="italic text-[#E6E0F0]">worth building?</span>
           </h2>
 
-          <p className="text-base sm:text-xl text-brand-muted max-w-xl mx-auto mb-10 leading-relaxed font-sans">
+          <p className="text-base sm:text-xl text-[#D1CFCC] max-w-xl mx-auto mb-10 leading-relaxed font-sans">
             "Tell us what you have in mind. Let's work out the right way to bring it to life."
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               to="/contact"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-[#CCFF00] text-[#08090C] hover:bg-[#BCE800] font-bold text-sm tracking-wide transition-all shadow-xl shadow-[#CCFF00]/25"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-[#6F4E37] text-[#FAF9F6] hover:bg-[#8B5E3C] font-semibold text-xs tracking-wider uppercase transition-all shadow-lg font-sans"
             >
               <span>LET'S TALK</span>
               <ArrowUpRight className="w-4 h-4" />
             </Link>
             <a
               href="mailto:wecove.in@gmail.com"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-white/5 hover:bg-white/10 text-white font-medium text-sm transition-all border border-white/10 font-mono text-xs"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-[#E6E0F0] hover:bg-[#D5CBE5] text-[#1F1D1B] font-semibold text-xs transition-all border border-[#D5CBE5] font-mono"
             >
               <span>wecove.in@gmail.com</span>
             </a>

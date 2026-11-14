@@ -33,10 +33,10 @@ export const HeroCanvas: React.FC = () => {
     // 1. Subtle architectural isometric wireframe grid
     const gridGeometry = new THREE.PlaneGeometry(30, 30, 24, 24);
     const gridMaterial = new THREE.MeshBasicMaterial({
-      color: 0x1f2430,
+      color: 0xd1cfcc,
       wireframe: true,
       transparent: true,
-      opacity: 0.25,
+      opacity: 0.35,
     });
     const gridMesh = new THREE.Mesh(gridGeometry, gridMaterial);
     gridMesh.rotation.x = -Math.PI / 2.5;
@@ -47,21 +47,21 @@ export const HeroCanvas: React.FC = () => {
     const icoGeometry = new THREE.IcosahedronGeometry(5, 1);
     const icoWireframe = new THREE.WireframeGeometry(icoGeometry);
     const lineMaterial = new THREE.LineBasicMaterial({
-      color: 0xccff00,
+      color: 0x6f4e37,
       transparent: true,
-      opacity: 0.35,
+      opacity: 0.5,
     });
     const icosahedronLines = new THREE.LineSegments(icoWireframe, lineMaterial);
     icosahedronLines.position.set(4, 1, -2);
     group.add(icosahedronLines);
 
-    // 3. Inner accent structure
+    // 3. Inner accent structure in Pale Lavender
     const innerGeometry = new THREE.OctahedronGeometry(2.5, 0);
     const innerWireframe = new THREE.WireframeGeometry(innerGeometry);
     const innerMaterial = new THREE.LineBasicMaterial({
-      color: 0xffffff,
+      color: 0xe6e0f0,
       transparent: true,
-      opacity: 0.15,
+      opacity: 0.65,
     });
     const innerLines = new THREE.LineSegments(innerWireframe, innerMaterial);
     innerLines.position.set(4, 1, -2);

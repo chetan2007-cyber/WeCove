@@ -1,24 +1,13 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
-  AppWindow,
   ArrowUpRight,
   Bot,
   Cloud,
   Code,
-  Compass,
-  Cpu,
-  Database,
   Globe,
   Layers,
-  Palette,
   Rocket,
-  ShieldCheck,
-  ShoppingBag,
-  Smartphone,
-  Workflow,
-  Wrench,
-  Zap
 } from 'lucide-react';
 import { ServiceItem } from '../types';
 
@@ -235,20 +224,20 @@ export const ServicesOverview: React.FC = () => {
       : allServices.filter((s) => s.category === activeCategory);
 
   return (
-    <section className="py-24 bg-[#08090C] text-white relative">
+    <section className="py-24 bg-[#F4F3F1] text-[#1F1D1B] relative border-t border-[#6F4E37]/15">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6">
           <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#CCFF00] mb-4">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#E6E0F0] border border-[#6F4E37]/15 text-xs font-semibold text-[#6F4E37] mb-4">
               <Layers className="w-3.5 h-3.5" />
               <span>CAPABILITIES & ARCHITECTURE</span>
             </div>
-            <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white mb-4">
+            <h2 className="text-3xl sm:text-5xl font-serif text-[#1F1D1B] mb-4">
               Everything your product needs <br />
-              <span className="text-[#CCFF00]">to move forward.</span>
+              <span className="text-[#6F4E37] italic">to move forward.</span>
             </h2>
-            <p className="text-brand-muted text-base sm:text-lg">
+            <p className="text-[#57524D] text-base sm:text-lg font-sans leading-relaxed">
               We organize our capabilities across web development, custom software, SaaS products, AI workflows,
               and cloud systems to deliver complete digital solutions.
             </p>
@@ -257,7 +246,7 @@ export const ServicesOverview: React.FC = () => {
           <div>
             <Link
               to="/services"
-              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-[#CCFF00] text-[#08090C] hover:bg-[#BCE800] font-bold text-sm transition-all shadow-lg shadow-[#CCFF00]/15"
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-[#6F4E37] text-[#FAF9F6] hover:bg-[#553B2A] font-semibold text-xs transition-all shadow-sm hover:shadow-md shadow-[#6F4E37]/20"
             >
               <span>EXPLORE ALL SERVICES</span>
               <ArrowUpRight className="w-4 h-4" />
@@ -274,10 +263,10 @@ export const ServicesOverview: React.FC = () => {
                 key={cat}
                 type="button"
                 onClick={() => setActiveCategory(cat)}
-                className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-medium whitespace-nowrap transition-all ${
+                className={`px-4 py-2 rounded-full text-xs sm:text-sm font-semibold whitespace-nowrap transition-all ${
                   isSelected
-                    ? 'bg-white text-black font-bold shadow-md'
-                    : 'bg-white/5 text-gray-400 hover:text-white hover:bg-white/10 border border-white/5'
+                    ? 'bg-[#6F4E37] text-[#FAF9F6] shadow-sm'
+                    : 'bg-[#E5E4E2] text-[#57524D] hover:bg-[#E6E0F0] hover:text-[#6F4E37] border border-[#6F4E37]/10'
                 }`}
               >
                 {cat}
@@ -293,52 +282,52 @@ export const ServicesOverview: React.FC = () => {
             return (
               <div
                 key={service.id}
-                className="group p-6 rounded-2xl bg-[#101217] border border-white/10 hover:border-white/20 transition-all hover:-translate-y-1 duration-300 flex flex-col justify-between"
+                className="group p-7 rounded-2xl bg-[#FFFFFF] border border-[#6F4E37]/15 hover:border-[#6F4E37]/40 transition-all hover:-translate-y-1 duration-300 shadow-sm hover:shadow-md flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-center justify-between mb-4">
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/5 text-[11px] font-mono text-[#CCFF00] border border-white/5">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#E6E0F0] text-xs font-semibold text-[#6F4E37]">
                       <CatIcon className="w-3.5 h-3.5" />
                       {service.category}
                     </span>
                     <Link
                       to="/contact"
-                      className="text-gray-500 hover:text-[#CCFF00] transition-colors p-1"
+                      className="text-[#57524D] hover:text-[#6F4E37] transition-colors p-1"
                       title="Inquire about this capability"
                     >
                       <ArrowUpRight className="w-4 h-4" />
                     </Link>
                   </div>
 
-                  <h3 className="text-xl font-bold text-white mb-2 group-hover:text-[#CCFF00] transition-colors">
+                  <h3 className="text-2xl font-serif text-[#1F1D1B] mb-2.5 group-hover:text-[#6F4E37] transition-colors">
                     {service.title}
                   </h3>
 
-                  <p className="text-xs text-gray-400 leading-relaxed mb-4">
+                  <p className="text-xs text-[#57524D] leading-relaxed mb-5 font-sans">
                     {service.description}
                   </p>
 
-                  <div className="space-y-1.5 border-t border-white/5 pt-3 mb-4">
+                  <div className="space-y-2 border-t border-[#6F4E37]/10 pt-4 mb-5">
                     {service.capabilities.slice(0, 3).map((cap, i) => (
-                      <div key={i} className="text-xs text-gray-300 flex items-center gap-2">
-                        <span className="w-1 h-1 rounded-full bg-[#CCFF00]" />
+                      <div key={i} className="text-xs text-[#1F1D1B] flex items-center gap-2 font-sans">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#6F4E37]" />
                         <span>{cap}</span>
                       </div>
                     ))}
                   </div>
                 </div>
 
-                <div className="pt-3 border-t border-white/5 flex items-center justify-between text-[11px] font-mono text-gray-500">
+                <div className="pt-3 border-t border-[#6F4E37]/10 flex items-center justify-between text-xs text-[#57524D]">
                   <div className="flex gap-1.5 flex-wrap">
                     {service.technologies.slice(0, 3).map((tech, i) => (
-                      <span key={i} className="px-1.5 py-0.5 rounded bg-white/5 text-gray-400 text-[10px]">
+                      <span key={i} className="px-2 py-0.5 rounded-md bg-[#E5E4E2]/60 text-[#57524D] font-mono text-[10px]">
                         {tech}
                       </span>
                     ))}
                   </div>
                   <Link
                     to="/services"
-                    className="text-[#CCFF00] hover:underline text-[11px] font-sans font-medium"
+                    className="text-[#6F4E37] hover:underline text-xs font-semibold"
                   >
                     Details →
                   </Link>

@@ -2,18 +2,12 @@ import React, { useState } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import {
   Activity,
-  ArrowUpRight,
-  CheckCircle2,
-  ChevronRight,
   Code2,
-  Database,
   Layers,
   LineChart,
   Lock,
-  Play,
   Server,
   Smartphone,
-  Sparkles,
   Zap
 } from 'lucide-react';
 
@@ -25,8 +19,8 @@ export const ProductCanvas: React.FC = () => {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [6, -6]), { stiffness: 150, damping: 20 });
-  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-6, 6]), { stiffness: 150, damping: 20 });
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [5, -5]), { stiffness: 150, damping: 20 });
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-5, 5]), { stiffness: 150, damping: 20 });
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -43,40 +37,40 @@ export const ProductCanvas: React.FC = () => {
 
   return (
     <div
-      className="relative w-full max-w-6xl mx-auto perspective-1000 py-6 select-none"
+      className="relative w-full max-w-6xl mx-auto perspective-1000 py-6 select-none font-sans"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
-      {/* Background glow beneath main canvas */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[85%] h-[60%] bg-[#CCFF00]/10 blur-[120px] rounded-full pointer-events-none" />
+      {/* Background glow in pale lavender and warm mocha */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[85%] h-[60%] bg-[#E6E0F0]/30 blur-[130px] rounded-full pointer-events-none" />
 
       <motion.div
         style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
-        className="relative bg-[#101216]/95 border border-white/10 rounded-2xl shadow-2xl backdrop-blur-xl overflow-hidden p-3 md:p-6"
+        className="relative bg-[#1F1D1B] border border-[#6F4E37]/30 rounded-2xl shadow-2xl backdrop-blur-xl overflow-hidden p-3 md:p-6 text-[#E5E4E2]"
       >
         {/* Top Window Bar */}
-        <div className="flex items-center justify-between pb-4 border-b border-white/5 mb-5 text-xs text-brand-muted">
+        <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-5 text-xs text-[#E5E4E2]/70">
           <div className="flex items-center gap-2">
             <div className="flex gap-1.5">
-              <span className="w-3 h-3 rounded-full bg-red-500/80 inline-block" />
-              <span className="w-3 h-3 rounded-full bg-yellow-500/80 inline-block" />
-              <span className="w-3 h-3 rounded-full bg-emerald-500/80 inline-block" />
+              <span className="w-3 h-3 rounded-full bg-[#E5E4E2]/40 inline-block" />
+              <span className="w-3 h-3 rounded-full bg-[#E6E0F0]/50 inline-block" />
+              <span className="w-3 h-3 rounded-full bg-[#6F4E37] inline-block" />
             </div>
-            <div className="hidden sm:flex items-center gap-1.5 ml-4 px-2.5 py-1 rounded-md bg-white/5 border border-white/5 text-[11px] font-mono text-gray-300">
-              <Lock className="w-3 h-3 text-[#CCFF00]" />
+            <div className="hidden sm:flex items-center gap-1.5 ml-4 px-2.5 py-1 rounded-md bg-white/5 border border-white/5 text-[11px] font-mono text-[#E5E4E2]/90">
+              <Lock className="w-3 h-3 text-[#E6E0F0]" />
               <span>https://console.wecove.in/production</span>
             </div>
           </div>
 
           <div className="flex items-center gap-3">
-            <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-[#CCFF00]/15 text-[#CCFF00] font-mono text-[11px] font-medium border border-[#CCFF00]/30">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#CCFF00] animate-pulse" />
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#E6E0F0]/15 text-[#E6E0F0] font-mono text-[11px] font-medium border border-[#E6E0F0]/30">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#E6E0F0] animate-pulse" />
               SYSTEM HEALTHY
             </span>
-            <span className="hidden md:inline text-white/40">v2.8.4</span>
+            <span className="hidden md:inline text-[#E5E4E2]/40 font-mono">v2.8.4</span>
           </div>
         </div>
 
@@ -94,8 +88,8 @@ export const ProductCanvas: React.FC = () => {
                     onClick={() => setActiveTab(tab)}
                     className={`px-3 py-1.5 rounded-md text-xs font-medium capitalize transition-all ${
                       activeTab === tab
-                        ? 'bg-[#181A20] text-white shadow-sm border border-white/10'
-                        : 'text-gray-400 hover:text-white'
+                        ? 'bg-[#6F4E37] text-[#FAF9F6] shadow-sm'
+                        : 'text-[#E5E4E2]/70 hover:text-white'
                     }`}
                   >
                     {tab}
@@ -111,8 +105,8 @@ export const ProductCanvas: React.FC = () => {
                     onClick={() => setActiveSegment(period)}
                     className={`px-2 py-1 rounded font-mono text-[11px] transition-colors ${
                       activeSegment === period
-                        ? 'bg-[#CCFF00]/20 text-[#CCFF00] font-semibold'
-                        : 'text-gray-400 hover:text-gray-200'
+                        ? 'bg-[#E6E0F0] text-[#1F1D1B] font-semibold'
+                        : 'text-[#E5E4E2]/70 hover:text-white'
                     }`}
                   >
                     {period}
@@ -123,48 +117,48 @@ export const ProductCanvas: React.FC = () => {
 
             {/* Metrics cards row */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              <div className="p-3.5 rounded-xl bg-white/[0.03] border border-white/5 hover:border-[#CCFF00]/30 transition-colors">
-                <div className="flex items-center justify-between text-xs text-gray-400 mb-1">
+              <div className="p-3.5 rounded-xl bg-white/[0.04] border border-white/10 hover:border-[#6F4E37]/50 transition-colors">
+                <div className="flex items-center justify-between text-xs text-[#E5E4E2]/70 mb-1">
                   <span>API Request Rate</span>
-                  <Activity className="w-3.5 h-3.5 text-[#CCFF00]" />
+                  <Activity className="w-3.5 h-3.5 text-[#E6E0F0]" />
                 </div>
-                <div className="text-xl font-bold tracking-tight text-white font-mono">
-                  14.8k <span className="text-xs font-normal text-emerald-400">+18%</span>
+                <div className="text-xl font-bold tracking-tight text-[#FAF9F6] font-mono">
+                  14.8k <span className="text-xs font-normal text-[#E6E0F0]">+18%</span>
                 </div>
-                <div className="text-[11px] text-gray-500 mt-1">99.98% successful responses</div>
+                <div className="text-[11px] text-[#E5E4E2]/60 mt-1">99.98% successful responses</div>
               </div>
 
-              <div className="p-3.5 rounded-xl bg-white/[0.03] border border-white/5 hover:border-[#CCFF00]/30 transition-colors">
-                <div className="flex items-center justify-between text-xs text-gray-400 mb-1">
+              <div className="p-3.5 rounded-xl bg-white/[0.04] border border-white/10 hover:border-[#6F4E37]/50 transition-colors">
+                <div className="flex items-center justify-between text-xs text-[#E5E4E2]/70 mb-1">
                   <span>Response Latency</span>
-                  <Zap className="w-3.5 h-3.5 text-[#CCFF00]" />
+                  <Zap className="w-3.5 h-3.5 text-[#E6E0F0]" />
                 </div>
-                <div className="text-xl font-bold tracking-tight text-white font-mono">
-                  38ms <span className="text-xs font-normal text-emerald-400">-4ms</span>
+                <div className="text-xl font-bold tracking-tight text-[#FAF9F6] font-mono">
+                  38ms <span className="text-xs font-normal text-[#E6E0F0]">-4ms</span>
                 </div>
-                <div className="text-[11px] text-gray-500 mt-1">Global edge delivery</div>
+                <div className="text-[11px] text-[#E5E4E2]/60 mt-1">Global edge delivery</div>
               </div>
 
-              <div className="p-3.5 rounded-xl bg-white/[0.03] border border-white/5 hover:border-[#CCFF00]/30 transition-colors">
-                <div className="flex items-center justify-between text-xs text-gray-400 mb-1">
+              <div className="p-3.5 rounded-xl bg-white/[0.04] border border-white/10 hover:border-[#6F4E37]/50 transition-colors">
+                <div className="flex items-center justify-between text-xs text-[#E5E4E2]/70 mb-1">
                   <span>Active Endpoints</span>
-                  <Server className="w-3.5 h-3.5 text-[#CCFF00]" />
+                  <Server className="w-3.5 h-3.5 text-[#E6E0F0]" />
                 </div>
-                <div className="text-xl font-bold tracking-tight text-white font-mono">
-                  48 <span className="text-xs font-normal text-gray-400">Services</span>
+                <div className="text-xl font-bold tracking-tight text-[#FAF9F6] font-mono">
+                  48 <span className="text-xs font-normal text-[#E5E4E2]/60">Services</span>
                 </div>
-                <div className="text-[11px] text-gray-500 mt-1">Distributed cloud cluster</div>
+                <div className="text-[11px] text-[#E5E4E2]/60 mt-1">Distributed cloud cluster</div>
               </div>
             </div>
 
             {/* Real Chart Visual Area */}
-            <div className="p-4 rounded-xl bg-black/40 border border-white/5">
+            <div className="p-4 rounded-xl bg-black/30 border border-white/5">
               <div className="flex items-center justify-between text-xs mb-3">
                 <div className="flex items-center gap-2">
-                  <LineChart className="w-4 h-4 text-[#CCFF00]" />
-                  <span className="font-semibold text-gray-200">Throughput & Workload Telemetry</span>
+                  <LineChart className="w-4 h-4 text-[#E6E0F0]" />
+                  <span className="font-semibold text-[#FAF9F6]">Throughput & Workload Telemetry</span>
                 </div>
-                <span className="text-[11px] font-mono text-gray-400">Interval: 100ms sync</span>
+                <span className="text-[11px] font-mono text-[#E5E4E2]/60">Interval: 100ms sync</span>
               </div>
 
               <div className="h-32 w-full relative flex items-end gap-1.5 pt-4">
@@ -172,8 +166,8 @@ export const ProductCanvas: React.FC = () => {
                 <svg className="absolute inset-0 w-full h-full overflow-visible" preserveAspectRatio="none" viewBox="0 0 500 120">
                   <defs>
                     <linearGradient id="gradient-chart" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="#CCFF00" stopOpacity="0.3" />
-                      <stop offset="100%" stopColor="#CCFF00" stopOpacity="0.0" />
+                      <stop offset="0%" stopColor="#E6E0F0" stopOpacity="0.35" />
+                      <stop offset="100%" stopColor="#6F4E37" stopOpacity="0.0" />
                     </linearGradient>
                   </defs>
                   <path
@@ -183,7 +177,7 @@ export const ProductCanvas: React.FC = () => {
                   <path
                     d="M0,80 Q50,40 100,65 T200,30 T300,50 T400,20 T500,45"
                     fill="none"
-                    stroke="#CCFF00"
+                    stroke="#E6E0F0"
                     strokeWidth="2.5"
                   />
                 </svg>
@@ -194,14 +188,14 @@ export const ProductCanvas: React.FC = () => {
                     <div
                       key={idx}
                       style={{ height: `${(val / 120) * 85}%` }}
-                      className="flex-1 bg-white/10 hover:bg-[#CCFF00] transition-colors rounded-t-sm"
+                      className="flex-1 bg-white/10 hover:bg-[#E6E0F0] transition-colors rounded-t-sm"
                       title={`${val} req/s`}
                     />
                   ))}
                 </div>
               </div>
 
-              <div className="flex justify-between items-center text-[10px] text-gray-500 font-mono mt-2 pt-2 border-t border-white/5">
+              <div className="flex justify-between items-center text-[10px] text-[#E5E4E2]/50 font-mono mt-2 pt-2 border-t border-white/5">
                 <span>00:00 UTC</span>
                 <span>06:00 UTC</span>
                 <span>12:00 UTC</span>
@@ -212,24 +206,24 @@ export const ProductCanvas: React.FC = () => {
 
             {/* Live event logs */}
             <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/5 font-mono text-xs space-y-2">
-              <div className="text-[11px] uppercase tracking-wider text-gray-400 font-sans font-semibold flex items-center justify-between">
+              <div className="text-[11px] uppercase tracking-wider text-[#E5E4E2]/70 font-sans font-semibold flex items-center justify-between">
                 <span>Recent Production Executions</span>
-                <span className="text-[#CCFF00] font-mono lowercase">auto-refresh</span>
+                <span className="text-[#E6E0F0] font-mono lowercase">auto-refresh</span>
               </div>
-              <div className="flex items-center justify-between text-gray-300 py-1 border-b border-white/5">
-                <span className="text-[#CCFF00]">POST /api/v1/auth/session</span>
-                <span className="text-gray-400">200 OK • 24ms</span>
-                <span className="text-[11px] text-gray-500">Bangalore, IN</span>
+              <div className="flex items-center justify-between text-[#E5E4E2]/90 py-1 border-b border-white/5">
+                <span className="text-[#E6E0F0]">POST /api/v1/auth/session</span>
+                <span className="text-[#E5E4E2]/70">200 OK • 24ms</span>
+                <span className="text-[11px] text-[#E5E4E2]/50">Bangalore, IN</span>
               </div>
-              <div className="flex items-center justify-between text-gray-300 py-1 border-b border-white/5">
-                <span className="text-emerald-400">EVENT prisma.inquiry.created</span>
-                <span className="text-gray-400">Stored PostgreSQL • 12ms</span>
-                <span className="text-[11px] text-gray-500">Transaction Commit</span>
+              <div className="flex items-center justify-between text-[#E5E4E2]/90 py-1 border-b border-white/5">
+                <span className="text-[#FAF9F6]">EVENT prisma.inquiry.created</span>
+                <span className="text-[#E5E4E2]/70">Stored PostgreSQL • 12ms</span>
+                <span className="text-[11px] text-[#E5E4E2]/50">Transaction Commit</span>
               </div>
-              <div className="flex items-center justify-between text-gray-300 py-1">
-                <span className="text-blue-400">JOB email.dispatch(Resend)</span>
-                <span className="text-gray-400">Triggered • 202 Accepted</span>
-                <span className="text-[11px] text-gray-500">SMTP Worker</span>
+              <div className="flex items-center justify-between text-[#E5E4E2]/90 py-1">
+                <span className="text-[#E5E4E2]">JOB email.dispatch(Resend)</span>
+                <span className="text-[#E5E4E2]/70">Triggered • 202 Accepted</span>
+                <span className="text-[11px] text-[#E5E4E2]/50">SMTP Worker</span>
               </div>
             </div>
           </div>
@@ -237,36 +231,36 @@ export const ProductCanvas: React.FC = () => {
           {/* Right Supporting Panels (4 cols) */}
           <div className="lg:col-span-4 flex flex-col gap-4">
             {/* Panel 1: Interactive Mobile Experience Preview */}
-            <div className="p-4 rounded-xl bg-gradient-to-b from-white/[0.05] to-transparent border border-white/10 relative overflow-hidden group">
+            <div className="p-4 rounded-xl bg-white/[0.03] border border-white/10 relative overflow-hidden group">
               <div className="flex items-center justify-between mb-3 text-xs">
-                <div className="flex items-center gap-1.5 font-semibold text-white">
-                  <Smartphone className="w-4 h-4 text-[#CCFF00]" />
+                <div className="flex items-center gap-1.5 font-semibold text-[#FAF9F6]">
+                  <Smartphone className="w-4 h-4 text-[#E6E0F0]" />
                   <span>Mobile Application UI</span>
                 </div>
-                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/10 text-gray-300">iOS & Android</span>
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/10 text-[#E5E4E2]">iOS & Android</span>
               </div>
 
               {/* Realistic Mini Device Frame */}
-              <div className="w-full bg-[#090A0D] border border-white/10 rounded-2xl p-3 shadow-inner">
+              <div className="w-full bg-[#171514] border border-white/10 rounded-2xl p-3 shadow-inner">
                 <div className="w-16 h-1 bg-white/20 rounded-full mx-auto mb-3" />
                 <div className="flex items-center justify-between mb-2">
-                  <div className="text-[11px] font-bold text-white">WeCove Mobile Hub</div>
-                  <span className="w-2 h-2 rounded-full bg-emerald-400" />
+                  <div className="text-[11px] font-bold text-[#FAF9F6]">WeCove Mobile Hub</div>
+                  <span className="w-2 h-2 rounded-full bg-[#E6E0F0]" />
                 </div>
 
                 <div className="p-2.5 rounded-lg bg-white/5 border border-white/5 mb-2">
-                  <div className="text-[10px] text-gray-400">Task Automation Queue</div>
-                  <div className="text-sm font-bold text-white font-mono mt-0.5">99.4% Uptime</div>
+                  <div className="text-[10px] text-[#E5E4E2]/70">Task Automation Queue</div>
+                  <div className="text-sm font-bold text-[#FAF9F6] font-mono mt-0.5">99.4% Uptime</div>
                   <div className="w-full bg-white/10 rounded-full h-1.5 mt-2 overflow-hidden">
-                    <div className="bg-[#CCFF00] h-full w-[84%]" />
+                    <div className="bg-[#6F4E37] h-full w-[84%]" />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-1.5 text-[10px]">
-                  <div className="p-2 rounded bg-white/5 text-center text-gray-300 hover:bg-white/10 transition-colors">
+                  <div className="p-2 rounded bg-white/5 text-center text-[#E5E4E2] hover:bg-white/10 transition-colors">
                     Deploy
                   </div>
-                  <div className="p-2 rounded bg-[#CCFF00]/15 text-[#CCFF00] font-semibold text-center hover:bg-[#CCFF00]/25 transition-colors">
+                  <div className="p-2 rounded bg-[#6F4E37] text-[#FAF9F6] font-semibold text-center hover:bg-[#553B2A] transition-colors">
                     Sync DB
                   </div>
                 </div>
@@ -274,25 +268,25 @@ export const ProductCanvas: React.FC = () => {
             </div>
 
             {/* Panel 2: Live Code & Microservices API snippet */}
-            <div className="p-4 rounded-xl bg-black/60 border border-white/10 font-mono text-[11px]">
-              <div className="flex items-center justify-between text-gray-400 mb-2 pb-1.5 border-b border-white/5">
+            <div className="p-4 rounded-xl bg-black/40 border border-white/10 font-mono text-[11px]">
+              <div className="flex items-center justify-between text-[#E5E4E2]/70 mb-2 pb-1.5 border-b border-white/5">
                 <div className="flex items-center gap-1.5">
-                  <Code2 className="w-3.5 h-3.5 text-[#CCFF00]" />
-                  <span className="font-sans text-xs font-semibold text-white">Full-Stack Core</span>
+                  <Code2 className="w-3.5 h-3.5 text-[#E6E0F0]" />
+                  <span className="font-sans text-xs font-semibold text-[#FAF9F6]">Full-Stack Core</span>
                 </div>
-                <span className="text-[10px] text-gray-500">TypeScript</span>
+                <span className="text-[10px] text-[#E5E4E2]/50">TypeScript</span>
               </div>
-              <pre className="text-gray-300 leading-relaxed overflow-x-auto">
-                <span className="text-purple-400">export async function</span>{' '}
-                <span className="text-blue-400">launchDigitalProduct</span>() &#123;{'\n'}
-                {'  '}<span className="text-gray-500">// WeCove.in Architecture</span>{'\n'}
-                {'  '}<span className="text-purple-400">const</span> stack = &#123;{'\n'}
-                {'    '}frontend: <span className="text-[#CCFF00]">'React + TS'</span>,{'\n'}
-                {'    '}backend: <span className="text-[#CCFF00]">'Node + Express'</span>,{'\n'}
-                {'    '}database: <span className="text-[#CCFF00]">'PostgreSQL'</span>,{'\n'}
-                {'    '}delivery: <span className="text-[#CCFF00]">'Production'</span>{'\n'}
+              <pre className="text-[#E5E4E2]/90 leading-relaxed overflow-x-auto">
+                <span className="text-[#E6E0F0]">export async function</span>{' '}
+                <span className="text-[#FAF9F6]">launchDigitalProduct</span>() &#123;{'\n'}
+                {'  '}<span className="text-[#E5E4E2]/50">// WeCove.in Architecture</span>{'\n'}
+                {'  '}<span className="text-[#E6E0F0]">const</span> stack = &#123;{'\n'}
+                {'    '}frontend: <span className="text-[#E6E0F0]">'React + TS'</span>,{'\n'}
+                {'    '}backend: <span className="text-[#E6E0F0]">'Node + Express'</span>,{'\n'}
+                {'    '}database: <span className="text-[#E6E0F0]">'PostgreSQL'</span>,{'\n'}
+                {'    '}delivery: <span className="text-[#FAF9F6]">'Production'</span>{'\n'}
                 {'  '}&#125;;{'\n'}
-                {'  '}<span className="text-purple-400">return await</span> deploy(stack);{'\n'}
+                {'  '}<span className="text-[#E6E0F0]">return await</span> deploy(stack);{'\n'}
                 &#125;
               </pre>
             </div>
@@ -300,18 +294,18 @@ export const ProductCanvas: React.FC = () => {
             {/* Panel 3: Design Tokens / Precision System */}
             <div className="p-4 rounded-xl bg-white/[0.03] border border-white/10">
               <div className="flex items-center justify-between mb-2">
-                <div className="flex items-center gap-1.5 text-xs font-semibold text-white">
-                  <Layers className="w-3.5 h-3.5 text-[#CCFF00]" />
+                <div className="flex items-center gap-1.5 text-xs font-semibold text-[#FAF9F6]">
+                  <Layers className="w-3.5 h-3.5 text-[#E6E0F0]" />
                   <span>Design System Tokens</span>
                 </div>
-                <span className="text-[10px] text-emerald-400 font-mono">Pixel-Perfect</span>
+                <span className="text-[10px] text-[#E6E0F0] font-mono">Pixel-Perfect</span>
               </div>
               <div className="flex items-center gap-2 mt-2">
-                <span className="w-5 h-5 rounded bg-[#CCFF00] border border-white/20" title="Primary Accent: #CCFF00" />
-                <span className="w-5 h-5 rounded bg-[#101216] border border-white/20" title="Charcoal Base: #101216" />
-                <span className="w-5 h-5 rounded bg-[#F8F9FA] border border-white/20" title="Light Off-White: #F8F9FA" />
-                <span className="w-5 h-5 rounded bg-emerald-500 border border-white/20" title="Success: #10B981" />
-                <span className="text-[11px] text-gray-400 ml-auto font-mono">Geist Sans 16/24</span>
+                <span className="w-5 h-5 rounded bg-[#6F4E37] border border-white/20" title="Mocha Brown: #6F4E37" />
+                <span className="w-5 h-5 rounded bg-[#E5E4E2] border border-white/20" title="Platinum Silver: #E5E4E2" />
+                <span className="w-5 h-5 rounded bg-[#E6E0F0] border border-white/20" title="Pale Lavender: #E6E0F0" />
+                <span className="w-5 h-5 rounded bg-[#FAF9F6] border border-white/20" title="Warm White: #FAF9F6" />
+                <span className="text-[11px] text-[#E5E4E2]/70 ml-auto font-mono">DM Serif + Manrope</span>
               </div>
             </div>
           </div>

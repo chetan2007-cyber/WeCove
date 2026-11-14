@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
-import { ArrowUpRight, Menu, X, Sparkles } from 'lucide-react';
+import { ArrowUpRight, Menu, X } from 'lucide-react';
 
 export const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
@@ -33,7 +33,7 @@ export const Navbar: React.FC = () => {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? 'bg-[#08090C]/90 backdrop-blur-md border-b border-white/10 shadow-lg'
+          ? 'bg-[#FAF9F6]/95 backdrop-blur-md border-b border-[#6F4E37]/10 shadow-sm'
           : 'bg-transparent border-b border-transparent'
       }`}
     >
@@ -42,19 +42,19 @@ export const Navbar: React.FC = () => {
           {/* Brand Logo */}
           <Link
             to="/"
-            className="flex items-center gap-2 group focus:outline-none"
+            className="flex items-center gap-2.5 group focus:outline-none"
             aria-label="WeCove.in Home"
           >
-            <div className="w-8 h-8 rounded-lg bg-[#CCFF00] flex items-center justify-center font-black text-black font-mono text-sm tracking-tighter group-hover:scale-105 transition-transform">
+            <div className="w-8 h-8 rounded-lg bg-[#6F4E37] flex items-center justify-center font-bold text-[#FAF9F6] font-sans text-sm tracking-tighter group-hover:bg-[#553B2A] transition-colors shadow-sm">
               W
             </div>
-            <span className="font-extrabold text-xl tracking-tight text-white font-sans">
-              WeCove<span className="text-[#CCFF00]">.in</span>
+            <span className="font-bold text-xl tracking-tight text-[#1F1D1B] font-sans">
+              WeCove<span className="text-[#6F4E37]">.in</span>
             </span>
           </Link>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden md:flex items-center gap-1 bg-[#101217]/70 p-1.5 rounded-full border border-white/10 backdrop-blur-md">
+          <nav className="hidden md:flex items-center gap-1 bg-[#E5E4E2]/70 p-1.5 rounded-full border border-[#6F4E37]/10 backdrop-blur-md">
             {navLinks.map((link) => (
               <NavLink
                 key={link.path}
@@ -63,8 +63,8 @@ export const Navbar: React.FC = () => {
                 className={({ isActive }) =>
                   `px-4 py-2 rounded-full text-xs font-medium transition-all duration-200 ${
                     isActive
-                      ? 'bg-white text-black font-semibold shadow-sm'
-                      : 'text-gray-400 hover:text-white hover:bg-white/5'
+                      ? 'bg-[#6F4E37] text-[#FAF9F6] font-semibold shadow-sm'
+                      : 'text-[#57524D] hover:text-[#6F4E37] hover:bg-[#E6E0F0]/50'
                   }`
                 }
               >
@@ -77,7 +77,7 @@ export const Navbar: React.FC = () => {
           <div className="hidden md:flex items-center gap-3">
             <Link
               to="/contact"
-              className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-[#CCFF00] text-[#08090C] text-xs font-bold hover:bg-[#BCE800] transition-all shadow-md shadow-[#CCFF00]/15"
+              className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-[#6F4E37] text-[#FAF9F6] text-xs font-semibold hover:bg-[#553B2A] transition-all shadow-sm hover:shadow-md shadow-[#6F4E37]/20"
             >
               <span>Start a Project</span>
               <ArrowUpRight className="w-3.5 h-3.5" />
@@ -89,7 +89,7 @@ export const Navbar: React.FC = () => {
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-xl bg-white/5 border border-white/10 text-white hover:bg-white/10 focus:outline-none"
+              className="p-2 rounded-xl bg-[#E5E4E2]/80 border border-[#6F4E37]/15 text-[#1F1D1B] hover:bg-[#E6E0F0] focus:outline-none transition-colors"
               aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={mobileMenuOpen}
             >
@@ -101,7 +101,7 @@ export const Navbar: React.FC = () => {
 
       {/* Mobile Menu Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-[#0D0E13] border-b border-white/10 px-4 pt-3 pb-6 space-y-2 animate-fadeIn">
+        <div className="md:hidden bg-[#FAF9F6] border-b border-[#6F4E37]/15 px-4 pt-3 pb-6 space-y-2 shadow-lg animate-fadeIn">
           {navLinks.map((link) => (
             <NavLink
               key={link.path}
@@ -110,8 +110,8 @@ export const Navbar: React.FC = () => {
               className={({ isActive }) =>
                 `block px-4 py-3 rounded-xl text-sm font-medium transition-colors ${
                   isActive
-                    ? 'bg-[#CCFF00] text-[#08090C] font-bold'
-                    : 'text-gray-300 hover:bg-white/5 hover:text-white'
+                    ? 'bg-[#6F4E37] text-[#FAF9F6] font-semibold'
+                    : 'text-[#57524D] hover:bg-[#E6E0F0]/60 hover:text-[#6F4E37]'
                 }`
               }
             >
@@ -121,7 +121,7 @@ export const Navbar: React.FC = () => {
           <div className="pt-2">
             <Link
               to="/contact"
-              className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-[#CCFF00] text-[#08090C] font-bold text-sm"
+              className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-[#6F4E37] text-[#FAF9F6] font-semibold text-sm shadow-sm"
             >
               <span>Start a Project</span>
               <ArrowUpRight className="w-4 h-4" />

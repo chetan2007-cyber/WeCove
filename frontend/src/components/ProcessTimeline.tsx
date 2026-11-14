@@ -84,20 +84,20 @@ export const ProcessTimeline: React.FC = () => {
   const [activeStage, setActiveStage] = useState<number>(0);
 
   return (
-    <section className="py-24 bg-[#090A0E] text-white border-t border-white/5 relative">
+    <section className="py-24 bg-[#F4F3F1] text-[#1F1D1B] border-t border-[#E5E4E2] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
           <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#CCFF00] mb-4">
-              <Flame className="w-3.5 h-3.5" />
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#E6E0F0] border border-[#D5CBE5] text-xs font-mono text-[#6F4E37] font-semibold mb-4">
+              <Flame className="w-3.5 h-3.5 text-[#6F4E37]" />
               <span>THE WECOVE METHOD</span>
             </div>
-            <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white mb-4">
+            <h2 className="text-3xl sm:text-5xl font-serif text-[#1F1D1B] mb-4 leading-tight">
               From the first conversation <br />
-              <span className="text-[#CCFF00]">to the final release.</span>
+              <span className="italic text-[#6F4E37]">to the final release.</span>
             </h2>
-            <p className="text-brand-muted text-base sm:text-lg">
+            <p className="text-[#5A5550] text-base sm:text-lg font-sans">
               A structured, transparent engineering lifecycle designed to eliminate ambiguity, ship on time, and
               build digital products built to scale.
             </p>
@@ -106,16 +106,16 @@ export const ProcessTimeline: React.FC = () => {
           <div>
             <Link
               to="/process"
-              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white/5 border border-white/10 text-white font-medium hover:bg-[#CCFF00] hover:text-[#08090C] hover:border-[#CCFF00] transition-all text-sm font-sans"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#6F4E37] hover:bg-[#553B2A] text-[#FAF9F6] font-semibold transition-all text-xs font-sans shadow-sm"
             >
-              <span>OUR PROCESS</span>
+              <span>EXPLORE FULL PROCESS</span>
               <ArrowUpRight className="w-4 h-4" />
             </Link>
           </div>
         </div>
 
         {/* Process Stage Selector Tabs */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 mb-8">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-8">
           {stages.map((st, index) => {
             const Icon = st.icon;
             const isActive = activeStage === index;
@@ -124,19 +124,19 @@ export const ProcessTimeline: React.FC = () => {
                 key={st.number}
                 type="button"
                 onClick={() => setActiveStage(index)}
-                className={`p-3.5 rounded-xl border text-left transition-all relative ${
+                className={`p-4 rounded-2xl border text-left transition-all relative ${
                   isActive
-                    ? 'bg-[#141620] border-[#CCFF00] shadow-lg'
-                    : 'bg-white/[0.02] border-white/5 hover:border-white/20'
+                    ? 'bg-[#6F4E37] text-white border-[#6F4E37] shadow-md'
+                    : 'bg-[#FFFFFF] border-[#E5E4E2] text-[#1F1D1B] hover:border-[#6F4E37]/30 hover:bg-[#FAF9F6]'
                 }`}
               >
                 <div className="flex items-center justify-between mb-2">
-                  <span className={`font-mono text-xs font-bold ${isActive ? 'text-[#CCFF00]' : 'text-gray-500'}`}>
+                  <span className={`font-mono text-xs font-bold ${isActive ? 'text-[#E6E0F0]' : 'text-[#8C847E]'}`}>
                     {st.number}
                   </span>
-                  <Icon className={`w-4 h-4 ${isActive ? 'text-[#CCFF00]' : 'text-gray-500'}`} />
+                  <Icon className={`w-4 h-4 ${isActive ? 'text-[#E6E0F0]' : 'text-[#8C847E]'}`} />
                 </div>
-                <div className={`text-sm font-bold ${isActive ? 'text-white' : 'text-gray-300'}`}>
+                <div className={`text-sm font-bold font-sans ${isActive ? 'text-white' : 'text-[#1F1D1B]'}`}>
                   {st.name}
                 </div>
               </button>
@@ -145,36 +145,36 @@ export const ProcessTimeline: React.FC = () => {
         </div>
 
         {/* Active Stage Detailed Card */}
-        <div className="p-6 sm:p-10 rounded-2xl bg-[#111319] border border-white/10">
+        <div className="p-6 sm:p-10 rounded-3xl bg-[#FFFFFF] border border-[#E5E4E2] shadow-sm">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             <div className="lg:col-span-7 space-y-4">
               <div className="flex items-center gap-3">
-                <span className="text-2xl font-mono font-bold text-[#CCFF00]">
+                <span className="text-2xl font-mono font-bold text-[#6F4E37]">
                   {stages[activeStage].number}
                 </span>
-                <span className="text-2xl sm:text-3xl font-extrabold text-white">
+                <span className="text-2xl sm:text-3xl font-serif text-[#1F1D1B]">
                   Stage {stages[activeStage].name}
                 </span>
               </div>
 
-              <div className="text-base text-gray-200 font-medium">
+              <div className="text-base text-[#3A3530] font-medium font-sans">
                 {stages[activeStage].tagline}
               </div>
 
-              <p className="text-brand-muted text-sm leading-relaxed">
+              <p className="text-[#5A5550] text-sm leading-relaxed font-sans">
                 {stages[activeStage].description}
               </p>
             </div>
 
-            <div className="lg:col-span-5 bg-black/40 border border-white/5 rounded-xl p-5">
-              <div className="text-xs font-mono uppercase tracking-wider text-[#CCFF00] mb-3 flex items-center gap-1.5">
-                <CheckCircle2 className="w-3.5 h-3.5" />
+            <div className="lg:col-span-5 bg-[#FAF9F6] border border-[#E5E4E2] rounded-2xl p-6">
+              <div className="text-xs font-mono uppercase tracking-wider text-[#6F4E37] mb-3 flex items-center gap-1.5 font-bold">
+                <CheckCircle2 className="w-3.5 h-3.5 text-[#6F4E37]" />
                 <span>Standard Deliverables</span>
               </div>
               <ul className="space-y-2.5">
                 {stages[activeStage].deliverables.map((item, idx) => (
-                  <li key={idx} className="flex items-start gap-2.5 text-xs text-gray-300">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#CCFF00] mt-1.5 flex-shrink-0" />
+                  <li key={idx} className="flex items-start gap-2.5 text-xs text-[#4A4540] font-sans">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#6F4E37] mt-1.5 flex-shrink-0" />
                     <span>{item}</span>
                   </li>
                 ))}

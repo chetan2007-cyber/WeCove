@@ -96,19 +96,19 @@ export const TechStackFlow: React.FC = () => {
   const activeData = techTiers.find((t) => t.id === selectedTier) || techTiers[0];
 
   return (
-    <section className="py-24 bg-[#08090C] text-white border-t border-white/5 relative">
+    <section className="py-24 bg-[#FAF9F6] text-[#1F1D1B] border-t border-[#E5E4E2] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="max-w-3xl mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#CCFF00] mb-4">
-            <Cpu className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#E6E0F0] border border-[#D5CBE5] text-xs font-mono text-[#6F4E37] font-semibold mb-4">
+            <Cpu className="w-3.5 h-3.5 text-[#6F4E37]" />
             <span>FULL-STACK ARCHITECTURE</span>
           </div>
-          <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white mb-4">
+          <h2 className="text-3xl sm:text-5xl font-serif text-[#1F1D1B] mb-4 leading-tight">
             Thoughtful design.{' '}
-            <span className="text-[#CCFF00]">Solid engineering.</span>
+            <span className="italic text-[#6F4E37]">Solid engineering.</span>
           </h2>
-          <p className="text-base sm:text-lg text-brand-muted leading-relaxed">
+          <p className="text-base sm:text-lg text-[#5A5550] leading-relaxed font-sans">
             From the initial component render to the cloud database write, we engineer every layer of the stack with
             precision, resilience, and strict type safety.
           </p>
@@ -116,12 +116,12 @@ export const TechStackFlow: React.FC = () => {
 
         {/* Architecture Pipeline Flow Diagram */}
         <div className="mb-10">
-          <div className="flex items-center gap-2 text-xs font-mono text-gray-400 uppercase tracking-wider mb-4">
+          <div className="flex items-center gap-2 text-xs font-mono text-[#7D7671] uppercase tracking-wider mb-4">
             <span>Engineering Pipeline:</span>
-            <span className="text-white font-bold">INTERFACE → APPLICATION → API → DATABASE → DEPLOYMENT</span>
+            <span className="text-[#6F4E37] font-bold">INTERFACE → APPLICATION → API → DATABASE → DEPLOYMENT</span>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-2.5">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
             {techTiers.map((tier) => {
               const isSelected = selectedTier === tier.id;
               return (
@@ -129,18 +129,24 @@ export const TechStackFlow: React.FC = () => {
                   key={tier.id}
                   onClick={() => setSelectedTier(tier.id)}
                   type="button"
-                  className={`text-left p-4 rounded-xl border transition-all relative overflow-hidden ${
+                  className={`text-left p-4 rounded-2xl border transition-all relative overflow-hidden ${
                     isSelected
-                      ? 'bg-[#14161F] border-[#CCFF00] shadow-lg shadow-[#CCFF00]/10'
-                      : 'bg-white/[0.02] border-white/5 hover:border-white/20 hover:bg-white/[0.04]'
+                      ? 'bg-[#6F4E37] text-white border-[#6F4E37] shadow-md'
+                      : 'bg-[#FFFFFF] border-[#E5E4E2] text-[#1F1D1B] hover:border-[#6F4E37]/40 hover:bg-[#FAF9F6]'
                   }`}
                 >
                   {isSelected && (
-                    <div className="absolute top-0 left-0 right-0 h-1 bg-[#CCFF00]" />
+                    <div className="absolute top-0 left-0 right-0 h-1 bg-[#E6E0F0]" />
                   )}
-                  <div className="text-[11px] font-mono text-gray-500 mb-1">{tier.step}</div>
-                  <div className="text-sm font-bold text-white mb-2">{tier.name}</div>
-                  <div className="text-[11px] text-gray-400 line-clamp-2">{tier.highlight}</div>
+                  <div className={`text-[11px] font-mono mb-1 ${isSelected ? 'text-[#E6E0F0]' : 'text-[#8C847E]'}`}>
+                    {tier.step}
+                  </div>
+                  <div className={`text-sm font-bold mb-2 font-sans ${isSelected ? 'text-white' : 'text-[#1F1D1B]'}`}>
+                    {tier.name}
+                  </div>
+                  <div className={`text-[11px] line-clamp-2 ${isSelected ? 'text-[#FAF9F6]/80' : 'text-[#6A635E]'}`}>
+                    {tier.highlight}
+                  </div>
                 </button>
               );
             })}
@@ -148,41 +154,41 @@ export const TechStackFlow: React.FC = () => {
         </div>
 
         {/* Selected Tier Deep-Dive Panel */}
-        <div className="bg-[#101217] border border-white/10 rounded-2xl p-6 sm:p-8">
+        <div className="bg-[#FFFFFF] border border-[#E5E4E2] rounded-3xl p-6 sm:p-10 shadow-sm">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-6 space-y-4">
-              <div className="flex items-center gap-2">
-                <span className="px-2.5 py-1 rounded bg-[#CCFF00]/15 text-[#CCFF00] font-mono text-xs font-semibold">
+              <div className="flex items-center gap-3">
+                <span className="px-3 py-1 rounded-full bg-[#E6E0F0] text-[#6F4E37] font-mono text-xs font-semibold">
                   TIER {activeData.step}
                 </span>
-                <span className="text-xl font-bold text-white">{activeData.name}</span>
+                <span className="text-2xl font-serif text-[#1F1D1B]">{activeData.name}</span>
               </div>
 
-              <p className="text-brand-muted text-sm leading-relaxed">
+              <p className="text-[#5A5550] text-sm leading-relaxed font-sans">
                 {activeData.description}
               </p>
 
-              <div className="p-3 rounded-xl bg-white/[0.03] border border-white/5 text-xs text-gray-300">
-                <span className="text-[#CCFF00] font-mono font-semibold">Engineering Philosophy: </span>
+              <div className="p-4 rounded-2xl bg-[#FAF9F6] border border-[#E5E4E2] text-xs text-[#5A5550]">
+                <span className="text-[#6F4E37] font-mono font-semibold">Engineering Philosophy: </span>
                 {activeData.highlight}
               </div>
             </div>
 
             <div className="lg:col-span-6">
-              <div className="text-xs font-mono uppercase tracking-wider text-gray-400 mb-3">
+              <div className="text-xs font-mono uppercase tracking-wider text-[#7D7671] mb-3">
                 Core Technologies & Tools:
               </div>
               <div className="grid grid-cols-2 gap-3">
                 {activeData.technologies.map((tech, idx) => (
                   <div
                     key={idx}
-                    className="p-3.5 rounded-xl bg-black/40 border border-white/5 flex items-center justify-between"
+                    className="p-3.5 rounded-2xl bg-[#FAF9F6] border border-[#E5E4E2] hover:border-[#6F4E37]/30 transition-colors flex items-center justify-between"
                   >
                     <div>
-                      <div className="text-sm font-bold text-white font-sans">{tech.name}</div>
-                      <div className="text-[10px] text-gray-400 font-mono">{tech.tag}</div>
+                      <div className="text-sm font-bold text-[#1F1D1B] font-sans">{tech.name}</div>
+                      <div className="text-[10px] text-[#7D7671] font-mono">{tech.tag}</div>
                     </div>
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#CCFF00]" />
+                    <span className="w-2 h-2 rounded-full bg-[#6F4E37]" />
                   </div>
                 ))}
               </div>

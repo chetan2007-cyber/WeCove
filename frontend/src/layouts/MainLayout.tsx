@@ -9,7 +9,7 @@ export const MainLayout: React.FC = () => {
   useRouteMeta();
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#08090C] text-[#F8F9FA] selection:bg-[#CCFF00] selection:text-[#08090C]">
+    <div className="min-h-screen flex flex-col bg-[#FAF9F6] text-[#1F1D1B] selection:bg-[#E6E0F0] selection:text-[#6F4E37] font-sans">
       <ScrollToTop />
       <Navbar />
       <main className="flex-grow pt-20">
