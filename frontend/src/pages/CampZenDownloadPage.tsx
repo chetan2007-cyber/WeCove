@@ -33,7 +33,7 @@ export const CampZenDownloadPage: React.FC = () => {
   const certFingerprint =
     '47:2E:F1:CB:B3:09:D8:E0:E8:03:1E:F0:C7:E1:0C:84:31:59:FA:DD:75:4F:2B:BB:F0:9B:22:52:82:6F:9D:7C';
   const apkSha256 =
-    'B232FB78BCE1EE1B0DE65680B7EF7D39F98D1F49173EC06ABBE28959826CC08D';
+    '8800B359FDA7EFC2EE202191D27CF3217FB96E59688722BAF340D21E4FA43179';
 
   const handleCopySha = () => {
     navigator.clipboard.writeText(apkSha256);
@@ -124,6 +124,24 @@ export const CampZenDownloadPage: React.FC = () => {
             and access campus study resources — anywhere, anytime.
           </motion.p>
 
+          {/* In-App Browser & Sideloading Notice */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.25 }}
+            className="mb-8 p-4 rounded-2xl bg-[#fff8f0] border border-[#f39c12]/30 text-xs sm:text-sm text-[#8a4b08] text-left flex items-start gap-3 shadow-sm"
+          >
+            <AlertCircle className="w-5 h-5 shrink-0 text-[#d35400] mt-0.5" />
+            <div className="space-y-1">
+              <strong className="block font-semibold text-[#1F1D1B]">
+                Opening via WhatsApp, Instagram, or Telegram?
+              </strong>
+              <span>
+                In-app browsers block downloading files. Tap the <strong>three dots (⋮)</strong> in the top-right corner and choose <strong>"Open in Chrome / Browser"</strong> to download. If you already have an older test version of Kami or CampZen on your phone, <strong>uninstall it first</strong>.
+              </span>
+            </div>
+          </motion.div>
+
           {/* MAIN DOWNLOAD CARD */}
           <motion.div
             initial={{ opacity: 0, scale: 0.98, y: 20 }}
@@ -137,7 +155,6 @@ export const CampZenDownloadPage: React.FC = () => {
                 alt="CampZen App Icon"
                 className="w-24 h-24 rounded-3xl shadow-lg shadow-[#6F4E37]/20 border border-[#6F4E37]/15 object-cover"
                 onError={(e) => {
-                  // Fallback in case image asset path differs
                   e.currentTarget.style.display = 'none';
                 }}
               />
@@ -156,7 +173,7 @@ export const CampZenDownloadPage: React.FC = () => {
                 <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 text-xs text-[#8B8580] font-mono">
                   <span>Version {appVersion} (Build 1)</span>
                   <span>•</span>
-                  <span>80.1 MB</span>
+                  <span>80.2 MB</span>
                   <span>•</span>
                   <span>Released {releaseDate}</span>
                 </div>
@@ -166,8 +183,10 @@ export const CampZenDownloadPage: React.FC = () => {
             {/* DOWNLOAD ACTION BUTTONS */}
             <div className="pt-8 flex flex-col sm:flex-row items-center gap-4">
               <a
-                href={downloadUrl}
+                href="https://wecove.in/downloads/campzen-v1.0.0.apk"
                 download="campzen-v1.0.0.apk"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl bg-[#6F4E37] hover:bg-[#553B2A] text-white text-base font-semibold shadow-lg shadow-[#6F4E37]/25 hover:shadow-xl transition-all hover:-translate-y-0.5 active:translate-y-0"
               >
                 <Download className="w-5 h-5" />
@@ -195,7 +214,7 @@ export const CampZenDownloadPage: React.FC = () => {
                 <span className="text-[#8B8580] flex items-center gap-1.5 mb-1 font-sans">
                   <HardDrive className="w-3.5 h-3.5" /> File Size
                 </span>
-                <strong className="text-[#1F1D1B] font-mono">80.1 MB (84,032,085 bytes)</strong>
+                <strong className="text-[#1F1D1B] font-mono">80.2 MB (84,153,572 bytes)</strong>
               </div>
               <div className="bg-[#FAF9F6] p-3.5 rounded-xl border border-[#6F4E37]/10">
                 <span className="text-[#8B8580] flex items-center gap-1.5 mb-1 font-sans">
@@ -290,7 +309,7 @@ export const CampZenDownloadPage: React.FC = () => {
               How to Install the APK on Your Android Device
             </h2>
             <p className="text-sm text-[#57524D]">
-              Installing an APK directly takes less than 60 seconds. Follow these 4 simple steps:
+              Installing an APK directly takes less than 60 seconds. Follow these simple steps:
             </p>
           </div>
 
@@ -298,23 +317,23 @@ export const CampZenDownloadPage: React.FC = () => {
             {[
               {
                 step: '01',
-                title: 'Download APK',
-                desc: 'Tap the download button above on your Android phone to save campzen-v1.0.0.apk.',
+                title: 'Uninstall Old Builds',
+                desc: 'If you have an earlier testing version of Kami or CampZen on your phone, uninstall it first to prevent Android signature conflicts ("App not installed").',
               },
               {
                 step: '02',
-                title: 'Allow Installation',
-                desc: 'If Chrome warns "File might be harmful", tap "Download anyway". This is standard for direct APK downloads.',
+                title: 'Download & Allow',
+                desc: 'Tap "Download CampZen APK". If Chrome asks "File might be harmful", tap "Download anyway".',
               },
               {
                 step: '03',
                 title: 'Enable Unknown Apps',
-                desc: 'When opening the file, if prompted, toggle ON "Allow from this source" in your Android security settings.',
+                desc: 'Open the downloaded file. If prompted, toggle ON "Allow from this source" in your phone\'s Security settings.',
               },
               {
                 step: '04',
-                title: 'Launch & Enjoy',
-                desc: 'Tap "Install". Once complete, open CampZen, sign in with your college credentials, and start printing.',
+                title: 'Tap Install & Sign In',
+                desc: 'Tap "Install". Launch CampZen from your home screen, sign in with your college account, and print queue-free.',
               },
             ].map((s) => (
               <div
