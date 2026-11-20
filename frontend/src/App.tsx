@@ -8,6 +8,7 @@ import { ProcessPage } from './pages/ProcessPage';
 import { AboutPage } from './pages/AboutPage';
 import { ContactPage } from './pages/ContactPage';
 import { NotFoundPage } from './pages/NotFoundPage';
+import { CampZenDownloadPage } from './pages/CampZenDownloadPage';
 
 export const App: React.FC = () => {
   return (
@@ -15,6 +16,8 @@ export const App: React.FC = () => {
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route index element={<HomePage />} />
+          <Route path="download/campzen" element={<CampZenDownloadPage />} />
+          <Route path="download" element={<CampZenDownloadPage />} />
           <Route path="services" element={<ServicesPage />} />
           <Route path="work" element={<WorkPage />} />
           <Route path="process" element={<ProcessPage />} />

@@ -22,6 +22,7 @@ export const Navbar: React.FC = () => {
 
   const navLinks = [
     { name: 'Home', path: '/' },
+    { name: 'CampZen App', path: '/download/campzen' },
     { name: 'Services', path: '/services' },
     { name: 'Work', path: '/work' },
     { name: 'Process', path: '/process' },
@@ -74,7 +75,14 @@ export const Navbar: React.FC = () => {
           </nav>
 
           {/* Primary CTA */}
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden md:flex items-center gap-2.5">
+            <Link
+              to="/download/campzen"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-[#6F4E37]/10 hover:bg-[#6F4E37]/15 border border-[#6F4E37]/25 text-[#6F4E37] text-xs font-semibold transition-all shadow-sm"
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-[#27ae60] animate-pulse" />
+              <span>Download CampZen</span>
+            </Link>
             <Link
               to="/contact"
               className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-[#6F4E37] text-[#FAF9F6] text-xs font-semibold hover:bg-[#553B2A] transition-all shadow-sm hover:shadow-md shadow-[#6F4E37]/20"

@@ -44,10 +44,30 @@ export const HomePage: React.FC = () => {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#E6E0F0] border border-[#D5CBE5] text-xs font-mono text-[#6F4E37] font-semibold mb-6 backdrop-blur-md"
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#E6E0F0] border border-[#D5CBE5] text-xs font-mono text-[#6F4E37] font-semibold mb-4 backdrop-blur-md"
             >
               <span className="w-2 h-2 rounded-full bg-[#6F4E37] animate-pulse" />
               <span>DIGITAL PRODUCT STUDIO & SOFTWARE ENGINEERING</span>
+            </motion.div>
+
+            {/* CampZen Launch Announcement Banner */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="mb-6 block"
+            >
+              <Link
+                to="/download/campzen"
+                className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white border border-[#6F4E37]/25 text-xs font-medium text-[#1F1D1B] hover:border-[#6F4E37] shadow-sm hover:shadow transition-all group"
+              >
+                <span className="w-2 h-2 rounded-full bg-[#27ae60] animate-ping" />
+                <span className="font-bold text-[#6F4E37]">PRODUCT RELEASE:</span>
+                <span>CampZen Student App (v1.0.0 APK) is Live</span>
+                <span className="text-[#6F4E37] font-semibold flex items-center group-hover:translate-x-0.5 transition-transform ml-1">
+                  Download Free <ArrowRight className="w-3.5 h-3.5 ml-1" />
+                </span>
+              </Link>
             </motion.div>
 
             {/* Headline */}
@@ -82,18 +102,24 @@ export const HomePage: React.FC = () => {
               className="flex flex-col sm:flex-row items-center justify-center gap-3.5 sm:gap-4"
             >
               <Link
-                to="/contact"
+                to="/download/campzen"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-[#6F4E37] hover:bg-[#553B2A] text-[#FAF9F6] font-semibold text-xs tracking-wider uppercase transition-all shadow-md font-sans"
+              >
+                <span>DOWNLOAD CAMPZEN APP</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+              <Link
+                to="/contact"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-[#E5E4E2] hover:bg-[#E6E0F0] text-[#1F1D1B] font-semibold text-xs tracking-wider uppercase transition-all border border-[#D5D3CF] font-sans"
               >
                 <span>START A PROJECT</span>
                 <ArrowUpRight className="w-4 h-4" />
               </Link>
               <Link
                 to="/services"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-[#E5E4E2] hover:bg-[#E6E0F0] text-[#1F1D1B] font-semibold text-xs tracking-wider uppercase transition-all border border-[#D5D3CF] font-sans"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-[#57524D] hover:text-[#1F1D1B] font-semibold text-xs tracking-wider uppercase transition-all font-sans"
               >
-                <span>EXPLORE WHAT WE DO</span>
-                <ArrowUpRight className="w-4 h-4" />
+                <span>EXPLORE SERVICES</span>
               </Link>
             </motion.div>
           </div>
