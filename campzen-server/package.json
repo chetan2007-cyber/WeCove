@@ -1,0 +1,43 @@
+{
+  "name": "campzen-server",
+  "version": "1.0.0",
+  "description": "CampZen Campus Printing Platform Backend API",
+  "main": "src/server.js",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "tunnel": "node scripts/tunnel.js",
+    "test": "node --test --test-concurrency=1 tests/*.test.js"
+  },
+  "keywords": [
+    "campzen",
+    "wecove",
+    "printing",
+    "campus"
+  ],
+  "author": "WeCove.in",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "dotenv": "^18.0.4",
+    "express": "^5.2.1",
+    "google-auth-library": "^11.1.0",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.10.3",
+    "multer": "^2.4.0",
+    "node-cron": "^4.6.0",
+    "nodemailer": "^10.0.15",
+    "pdf-lib": "^1.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14",
+    "supertest": "^7.3.1"
+  },
+  "optionalDependencies": {
+    "pdf-to-printer": "^5.8.1"
+  }
+}
