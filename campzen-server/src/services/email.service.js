@@ -51,6 +51,40 @@ const reconfigure = () => {
     transporter = createTransporter();
 };
 
+const sendViaResendApi = async (to, subject, html, text) => {
+    const apiKey = process.env.RESEND_API_KEY || process.env.EMAIL_PROVIDER_API_KEY;
+    if (!apiKey) return null;
+
+    const from = process.env.EMAIL_FROM || 'CampZen <onboarding@resend.dev>';
+    try {
+        const response = await fetch('https://api.resend.com/emails', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${apiKey.trim()}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                from,
+                to: [to],
+                subject,
+                html,
+                text
+            })
+        });
+        const data = await response.json();
+        if (response.ok) {
+            console.log(`📧 [Resend Dispatched] Email sent via HTTPS REST API to ${maskEmail(to)} (ID: ${data.id})`);
+            return { success: true, messageId: data.id };
+        } else {
+            console.warn('[Resend API Warning]', data);
+            return null;
+        }
+    } catch (err) {
+        console.warn('[Resend Fetch Error]', err.message);
+        return null;
+    }
+};
+
 /**
  * Send 6-digit email verification OTP to student
  */
@@ -114,6 +148,13 @@ const sendVerificationEmail = async (to, otp) => {
         html: htmlContent
     };
 
+    // 1. Try Resend HTTPS REST API first (Port 443 - bypasses all cloud SMTP firewall blocks)
+    const resendResult = await sendViaResendApi(to, 'Your CampZen Verification Code', htmlContent, textContent);
+    if (resendResult && resendResult.success) {
+        return resendResult;
+    }
+
+    // 2. Fallback to Nodemailer SMTP
     try {
         const info = await transporter.sendMail(mailOptions);
         console.log(`📧 [Email Dispatched] Verification code sent to ${maskEmail(to)} (ID: ${info.messageId})`);
@@ -188,6 +229,13 @@ const sendPasswordResetEmail = async (to, otp) => {
         html: htmlContent
     };
 
+    // 1. Try Resend HTTPS REST API first (Port 443 - bypasses all cloud SMTP firewall blocks)
+    const resendResult = await sendViaResendApi(to, 'CampZen Password Reset Code', htmlContent, textContent);
+    if (resendResult && resendResult.success) {
+        return resendResult;
+    }
+
+    // 2. Fallback to Nodemailer SMTP
     try {
         const info = await transporter.sendMail(mailOptions);
         console.log(`🔑 [Email Dispatched] Password reset code sent to ${maskEmail(to)} (ID: ${info.messageId})`);
