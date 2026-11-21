@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: campzen-server
+    runtime: node
+    plan: free
+    region: singapore
+    rootDir: campzen-server
+    buildCommand: npm install
+    startCommand: node src/server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: AUTO_PRINT_ENABLED
+        value: "false"
+      - key: JWT_EXPIRE
+        value: 30d
+      - key: MONGO_URI
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: EMAIL_USER
+        sync: false
+      - key: EMAIL_PASS
+        sync: false
+      - key: GOOGLE_CLIENT_ID
+        sync: false
