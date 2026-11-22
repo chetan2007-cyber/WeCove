@@ -85,6 +85,43 @@ const sendViaResendApi = async (to, subject, html, text) => {
     }
 };
 
+const sendViaBrevoApi = async (to, subject, html, text) => {
+    const apiKey = process.env.BREVO_API_KEY;
+    if (!apiKey) return null;
+
+    const fromEmail = process.env.BREVO_FROM_EMAIL || process.env.EMAIL_USER || 'sharmachetan7816@gmail.com';
+    const fromName = process.env.BREVO_FROM_NAME || 'CampZen';
+
+    try {
+        const response = await fetch('https://api.brevo.com/v3/smtp/email', {
+            method: 'POST',
+            headers: {
+                'api-key': apiKey.trim(),
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                sender: { name: fromName, email: fromEmail },
+                to: [{ email: to }],
+                subject,
+                htmlContent: html,
+                textContent: text
+            })
+        });
+        const data = await response.json();
+        if (response.ok) {
+            console.log(`📧 [Brevo Dispatched] Email sent via Brevo HTTPS API to ${maskEmail(to)} (ID: ${data.messageId})`);
+            return { success: true, messageId: data.messageId };
+        } else {
+            console.warn('[Brevo API Warning]', data);
+            return null;
+        }
+    } catch (err) {
+        console.warn('[Brevo Fetch Error]', err.message);
+        return null;
+    }
+};
+
 /**
  * Send 6-digit email verification OTP to student
  */
@@ -152,6 +189,12 @@ const sendVerificationEmail = async (to, otp) => {
     const resendResult = await sendViaResendApi(to, 'Your CampZen Verification Code', htmlContent, textContent);
     if (resendResult && resendResult.success) {
         return resendResult;
+    }
+
+    // 2. Try Brevo HTTPS REST API (Port 443)
+    const brevoResult = await sendViaBrevoApi(to, 'Your CampZen Verification Code', htmlContent, textContent);
+    if (brevoResult && brevoResult.success) {
+        return brevoResult;
     }
 
     // 2. Fallback to Nodemailer SMTP
@@ -233,6 +276,12 @@ const sendPasswordResetEmail = async (to, otp) => {
     const resendResult = await sendViaResendApi(to, 'CampZen Password Reset Code', htmlContent, textContent);
     if (resendResult && resendResult.success) {
         return resendResult;
+    }
+
+    // 2. Try Brevo HTTPS REST API (Port 443)
+    const brevoResult = await sendViaBrevoApi(to, 'CampZen Password Reset Code', htmlContent, textContent);
+    if (brevoResult && brevoResult.success) {
+        return brevoResult;
     }
 
     // 2. Fallback to Nodemailer SMTP
