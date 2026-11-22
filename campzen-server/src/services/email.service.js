@@ -130,7 +130,7 @@ const sendVerificationEmail = async (to, otp) => {
         throw new Error('Email recipient and OTP are required');
     }
 
-    const fromAddress = process.env.SMTP_FROM || process.env.SMTP_USER || 'Kami Campus Printing <noreply@kami.campus>';
+    const fromAddress = process.env.EMAIL_FROM || process.env.SMTP_FROM || 'CampZen <otp@wecove.in>';
 
     const htmlContent = `
 <!DOCTYPE html>
@@ -139,13 +139,13 @@ const sendVerificationEmail = async (to, otp) => {
   <meta charset="utf-8">
   <style>
     body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #FAF7F2; margin: 0; padding: 24px; color: #1F1F1F; }
-    .card { max-width: 480px; margin: 0 auto; background: #FFFFFF; border-radius: 12px; border: 1px solid #EDE8E0; padding: 32px; box-shadow: 0 4px 12px rgba(0,0,0,0.04); }
+    .card { max-width: 480px; margin: 0 auto; background: #FFFFFF; border-radius: 16px; border: 1px solid #EDE8E0; padding: 36px; box-shadow: 0 4px 16px rgba(0,0,0,0.05); }
     .header { text-align: center; margin-bottom: 24px; }
-    .hanko { display: inline-block; width: 44px; height: 44px; line-height: 44px; background: #C8372D; color: #FFFFFF; font-size: 24px; font-weight: bold; border-radius: 8px; text-align: center; }
+    .badge { display: inline-block; padding: 6px 14px; background: #C8372D; color: #FFFFFF; font-size: 14px; font-weight: 800; border-radius: 8px; letter-spacing: 1px; }
     .title { font-size: 22px; font-weight: 700; color: #1F1F1F; margin: 16px 0 8px 0; }
     .subtitle { font-size: 14px; color: #6E685F; margin: 0; }
-    .code-container { background: #FAF7F2; border: 1px dashed #DDD7CD; border-radius: 8px; padding: 20px; text-align: center; margin: 28px 0; }
-    .code { font-family: 'Courier New', Courier, monospace; font-size: 32px; font-weight: 800; letter-spacing: 10px; color: #C8372D; margin: 0; }
+    .code-container { background: #FAF7F2; border: 1px dashed #DDD7CD; border-radius: 12px; padding: 22px; text-align: center; margin: 28px 0; }
+    .code { font-family: 'Courier New', Courier, monospace; font-size: 34px; font-weight: 800; letter-spacing: 10px; color: #C8372D; margin: 0; }
     .expiry { font-size: 13px; color: #8C8275; margin-top: 10px; }
     .footer { text-align: center; font-size: 12px; color: #A0988C; margin-top: 32px; border-top: 1px solid #F0ECE4; padding-top: 16px; }
   </style>
@@ -153,9 +153,9 @@ const sendVerificationEmail = async (to, otp) => {
 <body>
   <div class="card">
     <div class="header">
-      <div class="hanko">紙</div>
+      <div class="badge">CAMPZEN</div>
       <h1 class="title">Verify your email</h1>
-      <p class="subtitle">Use this code to complete your Kami student registration.</p>
+      <p class="subtitle">Use this code to complete your CampZen student registration.</p>
     </div>
     
     <div class="code-container">
@@ -164,23 +164,23 @@ const sendVerificationEmail = async (to, otp) => {
     </div>
     
     <p style="font-size: 14px; color: #4A443C; line-height: 1.5;">
-      If you did not request this verification code, please ignore this email or reach out to your campus Kami support.
+      If you did not request this verification code, please ignore this email.
     </p>
     
     <div class="footer">
-      Kami • Campus Cloud Printing Network
+      CampZen by WeCove.in • Campus Cloud Printing Platform
     </div>
   </div>
 </body>
 </html>
     `.trim();
 
-    const textContent = `Kami Campus Printing - Verify Your Email\n\nYour 6-digit verification code is: ${otp}\n\nThis code expires in 10 minutes.\nIf you did not request this code, please ignore this email.`;
+    const textContent = `CampZen by WeCove.in - Verify Your Email\n\nYour 6-digit verification code is: ${otp}\n\nThis code expires in 10 minutes.\nIf you did not request this code, please ignore this email.`;
 
     const mailOptions = {
         from: fromAddress,
         to,
-        subject: 'Your Kami Verification Code',
+        subject: 'Your CampZen Verification Code',
         text: textContent,
         html: htmlContent
     };
@@ -217,7 +217,7 @@ const sendPasswordResetEmail = async (to, otp) => {
         throw new Error('Email recipient and OTP are required');
     }
 
-    const fromAddress = process.env.SMTP_FROM || process.env.SMTP_USER || 'Kami Campus Printing <noreply@kami.campus>';
+    const fromAddress = process.env.EMAIL_FROM || process.env.SMTP_FROM || 'CampZen <otp@wecove.in>';
 
     const htmlContent = `
 <!DOCTYPE html>
@@ -226,13 +226,13 @@ const sendPasswordResetEmail = async (to, otp) => {
   <meta charset="utf-8">
   <style>
     body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #FAF7F2; margin: 0; padding: 24px; color: #1F1F1F; }
-    .card { max-width: 480px; margin: 0 auto; background: #FFFFFF; border-radius: 12px; border: 1px solid #EDE8E0; padding: 32px; box-shadow: 0 4px 12px rgba(0,0,0,0.04); }
+    .card { max-width: 480px; margin: 0 auto; background: #FFFFFF; border-radius: 16px; border: 1px solid #EDE8E0; padding: 36px; box-shadow: 0 4px 16px rgba(0,0,0,0.05); }
     .header { text-align: center; margin-bottom: 24px; }
-    .hanko { display: inline-block; width: 44px; height: 44px; line-height: 44px; background: #C8372D; color: #FFFFFF; font-size: 24px; font-weight: bold; border-radius: 8px; text-align: center; }
+    .badge { display: inline-block; padding: 6px 14px; background: #C8372D; color: #FFFFFF; font-size: 14px; font-weight: 800; border-radius: 8px; letter-spacing: 1px; }
     .title { font-size: 22px; font-weight: 700; color: #1F1F1F; margin: 16px 0 8px 0; }
     .subtitle { font-size: 14px; color: #6E685F; margin: 0; }
-    .code-container { background: #FAF7F2; border: 1px dashed #DDD7CD; border-radius: 8px; padding: 20px; text-align: center; margin: 28px 0; }
-    .code { font-family: 'Courier New', Courier, monospace; font-size: 32px; font-weight: 800; letter-spacing: 10px; color: #C8372D; margin: 0; }
+    .code-container { background: #FAF7F2; border: 1px dashed #DDD7CD; border-radius: 12px; padding: 22px; text-align: center; margin: 28px 0; }
+    .code { font-family: 'Courier New', Courier, monospace; font-size: 34px; font-weight: 800; letter-spacing: 10px; color: #C8372D; margin: 0; }
     .expiry { font-size: 13px; color: #8C8275; margin-top: 10px; }
     .footer { text-align: center; font-size: 12px; color: #A0988C; margin-top: 32px; border-top: 1px solid #F0ECE4; padding-top: 16px; }
   </style>
@@ -240,9 +240,9 @@ const sendPasswordResetEmail = async (to, otp) => {
 <body>
   <div class="card">
     <div class="header">
-      <div class="hanko">鍵</div>
+      <div class="badge">CAMPZEN</div>
       <h1 class="title">Reset Your Password</h1>
-      <p class="subtitle">Use this code to verify your identity and set a new password for your Kami account.</p>
+      <p class="subtitle">Use this code to set a new password for your CampZen account.</p>
     </div>
     
     <div class="code-container">
@@ -255,19 +255,19 @@ const sendPasswordResetEmail = async (to, otp) => {
     </p>
     
     <div class="footer">
-      Kami • Campus Cloud Printing Network
+      CampZen by WeCove.in • Campus Cloud Printing Platform
     </div>
   </div>
 </body>
 </html>
     `.trim();
 
-    const textContent = `Kami Campus Printing - Password Reset\n\nYour 6-digit password reset code is: ${otp}\n\nThis code expires in 10 minutes.\nIf you did not request this, please ignore this email.`;
+    const textContent = `CampZen by WeCove.in - Password Reset\n\nYour 6-digit password reset code is: ${otp}\n\nThis code expires in 10 minutes.\nIf you did not request this, please ignore this email.`;
 
     const mailOptions = {
         from: fromAddress,
         to,
-        subject: 'Kami Password Reset Code',
+        subject: 'CampZen Password Reset Code',
         text: textContent,
         html: htmlContent
     };
