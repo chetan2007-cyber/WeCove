@@ -185,16 +185,16 @@ const createOrder = async (req, res, next) => {
         if (!mongoose.Types.ObjectId.isValid(vendorId)) {
             return res.status(400).json({
                 success: false,
-                message: 'Invalid vendor ID. Google discovery places and external businesses are not orderable on Kami.'
+                message: 'Invalid vendor ID. Google discovery places and external businesses are not orderable on CampZen.'
             });
         }
 
         const vendor = await Vendor.findById(vendorId).populate('ownerId', 'isVerified role');
         const isOwnerVerified = vendor?.ownerId && vendor.ownerId.isVerified === true && (vendor.ownerId.role === 'vendor_owner' || vendor.ownerId.role === 'admin');
-        if (!vendor || vendor.status !== 'active' || vendor.isApproved !== true || vendor.source !== 'KAMI' || !isOwnerVerified) {
+        if (!vendor || vendor.status !== 'active' || vendor.isApproved !== true || (vendor.source !== 'KAMI' && vendor.source !== 'CAMPZEN') || !isOwnerVerified) {
             return res.status(404).json({
                 success: false,
-                message: 'This shop is not an active Kami partner and cannot accept orders.'
+                message: 'This shop is not an active CampZen partner and cannot accept orders.'
             });
         }
 
@@ -407,7 +407,7 @@ const createOrder = async (req, res, next) => {
         const finalTotal = totalSubtotal + creatorRoyalty + platformFee + deliveryFee + calculatedSchedulingFee;
 
         // 4. Generate unique Order Number & Initialize 60-Second Editing Window
-        const orderNumber = `KAMI-${Math.floor(100000 + Math.random() * 900000)}`;
+        const orderNumber = `CZ-${Math.floor(100000 + Math.random() * 900000)}`;
         const now = new Date();
         const editWindowEndsAt = new Date(now.getTime() + 60 * 1000);
 

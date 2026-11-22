@@ -371,7 +371,7 @@ const verifyEmail = async (req, res, next) => {
                 collegeId: user.collegeId,
                 isVerified: true
             },
-            message: 'Email verified successfully! Welcome to Kami.'
+            message: 'Email verified successfully! Welcome to CampZen.'
         });
     } catch (error) {
         next(error);
@@ -539,7 +539,7 @@ const googleLogin = async (req, res) => {
             await user.save();
         }
 
-        // 4. Generate our standard Kami JWT
+        // 4. Generate our standard CampZen JWT
         const token = jwt.sign(
             { id: user._id, role: user.role },
             process.env.JWT_SECRET,

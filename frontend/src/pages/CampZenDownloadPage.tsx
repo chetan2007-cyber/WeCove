@@ -33,7 +33,7 @@ export const CampZenDownloadPage: React.FC = () => {
   const certFingerprint =
     '47:2E:F1:CB:B3:09:D8:E0:E8:03:1E:F0:C7:E1:0C:84:31:59:FA:DD:75:4F:2B:BB:F0:9B:22:52:82:6F:9D:7C';
   const apkSha256 =
-    '93C490D03C90E50449AAAC446748A39810F975D14064408E5998F652E0761B25';
+    '65EE0FC83AF1260FBE4652B4EFBC025B1CAD270EDE868A5220C6BBA0DEBC3453';
 
   const handleCopySha = () => {
     navigator.clipboard.writeText(apkSha256);
