@@ -15,7 +15,7 @@ connectDB().then(() => {
     printerService.startAutoPrintWatcher(3000);
 
     const server = app.listen(PORT, '0.0.0.0', () => {
-        console.log(`[Server] Kami backend started in ${process.env.NODE_ENV} mode on port ${PORT} (0.0.0.0)`);
+        console.log(`[Server] CampZen backend started in ${process.env.NODE_ENV} mode on port ${PORT} (0.0.0.0)`);
     });
 
     // Handle unhandled promise rejections

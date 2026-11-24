@@ -33,7 +33,7 @@ export const CampZenDownloadPage: React.FC = () => {
   const certFingerprint =
     '47:2E:F1:CB:B3:09:D8:E0:E8:03:1E:F0:C7:E1:0C:84:31:59:FA:DD:75:4F:2B:BB:F0:9B:22:52:82:6F:9D:7C';
   const apkSha256 =
-    '65EE0FC83AF1260FBE4652B4EFBC025B1CAD270EDE868A5220C6BBA0DEBC3453';
+    '6835F80E66A41706C90D62C5646EE72DB57A0C108734B617FDD34B9A35925DE8';
 
   const handleCopySha = () => {
     navigator.clipboard.writeText(apkSha256);
@@ -173,7 +173,7 @@ export const CampZenDownloadPage: React.FC = () => {
                 <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 text-xs text-[#8B8580] font-mono">
                   <span>Version {appVersion} (Build 1)</span>
                   <span>•</span>
-                  <span>80.2 MB</span>
+                  <span>81.2 MB</span>
                   <span>•</span>
                   <span>Released {releaseDate}</span>
                 </div>

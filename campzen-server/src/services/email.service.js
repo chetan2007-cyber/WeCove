@@ -55,7 +55,7 @@ const sendViaResendApi = async (to, subject, html, text) => {
     const apiKey = process.env.RESEND_API_KEY || process.env.EMAIL_PROVIDER_API_KEY;
     if (!apiKey) return null;
 
-    const from = process.env.EMAIL_FROM || 'CampZen <onboarding@resend.dev>';
+    const from = process.env.EMAIL_FROM || 'CampZen by WeCove.in <otp@wecove.in>';
     try {
         const response = await fetch('https://api.resend.com/emails', {
             method: 'POST',
@@ -130,7 +130,7 @@ const sendVerificationEmail = async (to, otp) => {
         throw new Error('Email recipient and OTP are required');
     }
 
-    const fromAddress = process.env.EMAIL_FROM || process.env.SMTP_FROM || 'CampZen <otp@wecove.in>';
+    const fromAddress = process.env.EMAIL_FROM || process.env.SMTP_FROM || 'CampZen by WeCove.in <otp@wecove.in>';
 
     const htmlContent = `
 <!DOCTYPE html>
@@ -217,7 +217,7 @@ const sendPasswordResetEmail = async (to, otp) => {
         throw new Error('Email recipient and OTP are required');
     }
 
-    const fromAddress = process.env.EMAIL_FROM || process.env.SMTP_FROM || 'CampZen <otp@wecove.in>';
+    const fromAddress = process.env.EMAIL_FROM || process.env.SMTP_FROM || 'CampZen by WeCove.in <otp@wecove.in>';
 
     const htmlContent = `
 <!DOCTYPE html>

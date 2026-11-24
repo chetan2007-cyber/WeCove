@@ -1,6 +1,13 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/user.model');
+const Session = require('../models/session.model');
 const { generateToken } = require('../utils/jwt');
+const {
+    generateAccessToken,
+    generateRefreshToken,
+    hashRefreshToken,
+    getRefreshTokenExpiry
+} = require('../utils/token.util');
 const { OAuth2Client } = require('google-auth-library');
 const { generateOTP, hashOTP, verifyOTPHash, maskEmail } = require('../utils/otp');
 const emailService = require('../services/email.service');
@@ -479,10 +486,24 @@ const login = async (req, res, next) => {
             });
         }
 
-        const token = generateToken(user._id);
+        const token = generateAccessToken(user);
+        const refreshToken = generateRefreshToken();
+        try {
+            await Session.create({
+                userId: user._id,
+                tokenHash: hashRefreshToken(refreshToken),
+                deviceInfo: req.headers['user-agent'] || 'CampZen Mobile App',
+                ipAddress: req.ip || '',
+                expiresAt: getRefreshTokenExpiry()
+            });
+        } catch (sErr) {
+            console.warn('[Session Create Warning]', sErr.message);
+        }
+
         res.status(200).json({
             success: true,
             token,
+            refreshToken,
             user: {
                 id: user._id,
                 name: user.name,
@@ -539,16 +560,25 @@ const googleLogin = async (req, res) => {
             await user.save();
         }
 
-        // 4. Generate our standard CampZen JWT
-        const token = jwt.sign(
-            { id: user._id, role: user.role },
-            process.env.JWT_SECRET,
-            { expiresIn: '30d' }
-        );
+        // 4. Generate standard CampZen Access Token & Refresh Token Session
+        const token = generateAccessToken(user);
+        const refreshToken = generateRefreshToken();
+        try {
+            await Session.create({
+                userId: user._id,
+                tokenHash: hashRefreshToken(refreshToken),
+                deviceInfo: req.headers['user-agent'] || 'CampZen Mobile App',
+                ipAddress: req.ip || '',
+                expiresAt: getRefreshTokenExpiry()
+            });
+        } catch (sErr) {
+            console.warn('[Session Create Warning]', sErr.message);
+        }
 
         res.status(200).json({
             success: true,
             token,
+            refreshToken,
             data: {
                 id: user._id,
                 name: user.name,
@@ -776,6 +806,107 @@ const resetPassword = async (req, res, next) => {
     }
 };
 
+/**
+ * @desc    Refresh session using valid refresh token (Token Rotation)
+ * @route   POST /api/auth/refresh
+ * @access  Public
+ */
+const refreshSession = async (req, res, next) => {
+    try {
+        const { refreshToken } = req.body;
+        if (!refreshToken || typeof refreshToken !== 'string') {
+            return res.status(400).json({ success: false, message: 'Refresh token is required' });
+        }
+
+        const tokenHash = hashRefreshToken(refreshToken);
+        const session = await Session.findOne({ tokenHash, isRevoked: false });
+
+        if (!session) {
+            return res.status(401).json({
+                success: false,
+                code: 'INVALID_REFRESH_TOKEN',
+                message: 'Invalid or revoked session. Please sign in again.'
+            });
+        }
+
+        if (session.expiresAt < new Date()) {
+            await Session.findByIdAndUpdate(session._id, { isRevoked: true });
+            return res.status(401).json({
+                success: false,
+                code: 'REFRESH_TOKEN_EXPIRED',
+                message: 'Session has expired. Please sign in again.'
+            });
+        }
+
+        const user = await User.findById(session.userId);
+        if (!user) {
+            await Session.findByIdAndUpdate(session._id, { isRevoked: true });
+            return res.status(401).json({
+                success: false,
+                code: 'USER_NOT_FOUND',
+                message: 'User account no longer exists.'
+            });
+        }
+
+        if (user.status === 'suspended' || user.status === 'deactivated') {
+            await Session.findByIdAndUpdate(session._id, { isRevoked: true });
+            return res.status(403).json({
+                success: false,
+                code: 'ACCOUNT_SUSPENDED',
+                message: 'Account has been suspended or deactivated.'
+            });
+        }
+
+        // Token Rotation: Generate new access token and new refresh token
+        const newAccessToken = generateAccessToken(user);
+        const newRefreshToken = generateRefreshToken();
+        const newTokenHash = hashRefreshToken(newRefreshToken);
+
+        session.tokenHash = newTokenHash;
+        session.expiresAt = getRefreshTokenExpiry();
+        await session.save();
+
+        return res.status(200).json({
+            success: true,
+            token: newAccessToken,
+            refreshToken: newRefreshToken,
+            user: {
+                id: user._id,
+                name: user.name,
+                email: user.email,
+                phone: user.phone,
+                role: user.role,
+                collegeName: user.collegeName,
+                collegeId: user.collegeId,
+                isVerified: user.isVerified
+            }
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+/**
+ * @desc    Explicit logout (Revokes session in MongoDB)
+ * @route   POST /api/auth/logout
+ * @access  Public / Optional Authenticated
+ */
+const logoutSession = async (req, res, next) => {
+    try {
+        const { refreshToken } = req.body;
+        if (refreshToken && typeof refreshToken === 'string') {
+            const tokenHash = hashRefreshToken(refreshToken);
+            await Session.findOneAndUpdate({ tokenHash }, { isRevoked: true });
+        }
+        if (req.user && req.user.id && !refreshToken) {
+            await Session.updateMany({ userId: req.user.id }, { isRevoked: true });
+        }
+        return res.status(200).json({ success: true, message: 'Logged out successfully' });
+    } catch (error) {
+        next(error);
+    }
+};
+
 module.exports = {
     signup,
     verifyEmail,
@@ -785,5 +916,7 @@ module.exports = {
     sendOtp,
     verifyOtp,
     forgotPassword,
-    resetPassword
+    resetPassword,
+    refreshSession,
+    logoutSession
 };

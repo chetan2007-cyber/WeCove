@@ -16,7 +16,9 @@ const {
 const informationSheetService = require('./informationSheet.service');
 
 const SCRIPTS_DIR = path.join(__dirname, '../../scripts');
-const WIN_PRINT_SCRIPT = path.join(SCRIPTS_DIR, 'kami-win-print.ps1');
+const WIN_PRINT_SCRIPT = fs.existsSync(path.join(SCRIPTS_DIR, 'campzen-win-print.ps1'))
+    ? path.join(SCRIPTS_DIR, 'campzen-win-print.ps1')
+    : path.join(SCRIPTS_DIR, 'kami-win-print.ps1');
 const RENDER_PAGES_SCRIPT = path.join(SCRIPTS_DIR, 'render_print_pages.py');
 const UPLOADS_DIR = path.join(__dirname, '../../uploads');
 
@@ -92,7 +94,7 @@ function createWindowsSpoolerAdapter() {
                 throw new Error('Windows print bridge requires win32 host');
             }
 
-            const renderDir = path.join(os.tmpdir(), 'kami-print-render', `${jobSpec.printJobId}_${Date.now()}`);
+            const renderDir = path.join(os.tmpdir(), 'campzen-print-render', `${jobSpec.printJobId}_${Date.now()}`);
             const configPath = path.join(renderDir, 'job-config.json');
 
             try {
@@ -287,7 +289,7 @@ function createVirtualTestSpoolerAdapter() {
 class PrinterService {
     constructor() {
         this.defaultPrinterName = process.env.PRINTER_NAME || 'HP LaserJet MFP M72625-M72630 PCL 6';
-        this.agentId = `kami-agent-${os.hostname()}-${process.pid}`;
+        this.agentId = `campzen-agent-${os.hostname()}-${process.pid}`;
         this.inFlightOrders = new Set();
         this.watcherInterval = null;
         this._isWatcherPolling = false;
@@ -546,7 +548,7 @@ class PrinterService {
                 pageRange: options.pages || 'all',
                 pagesPerSheet: 1
             },
-            outputPath: path.join(os.tmpdir(), `kami-direct-${Date.now()}.pdf`)
+            outputPath: path.join(os.tmpdir(), `campzen-direct-${Date.now()}.pdf`)
         });
 
         try {
@@ -563,7 +565,7 @@ class PrinterService {
             const result = await this.spoolerAdapter.submitPrintJob({
                 printJobId: `direct_${Date.now()}`,
                 printerName: targetPrinter,
-                documentName: `Kami-Direct-${path.basename(filePath)}`,
+                documentName: `CampZen-Direct-${path.basename(filePath)}`,
                 pdfPath: prepared.outputPath,
                 sides,
                 copies: prepared.copies,
@@ -751,7 +753,7 @@ class PrinterService {
             const baseKey = existingPrintJob.submissionIdempotencyKey || `pj_${existingPrintJob._id}`;
             const nextAttemptNum = (existingPrintJob.submissionCount || 0) + 1;
             const logIdempotencyKey = nextAttemptNum === 1 ? baseKey : `${baseKey}_retry_${nextAttemptNum}`;
-            const spoolerDocumentName = `Kami-${order.orderNumber}-${existingPrintJob._id.toString().slice(-6)}-A${nextAttemptNum}`;
+            const spoolerDocumentName = `CampZen-${order.orderNumber}-${existingPrintJob._id.toString().slice(-6)}-A${nextAttemptNum}`;
 
             const allowedClaimStates = options.isExplicitRetry
                 ? ['CREATED', 'VALIDATED', 'READY_FOR_AGENT', 'SUBMISSION_FAILED', 'PRINTER_OFFLINE', 'RECONCILIATION_REQUIRED']
@@ -873,7 +875,7 @@ class PrinterService {
             await claimed.save();
 
             // 3. Spool the Information Sheet FIRST (1 copy, simplex, standard A4 1-Up portrait)
-            const infoSpoolerDocName = `Kami-${order.orderNumber}-InfoSheet-A${nextAttemptNum}`;
+            const infoSpoolerDocName = `CampZen-${order.orderNumber}-InfoSheet-A${nextAttemptNum}`;
             try {
                 await this.spoolerAdapter.submitPrintJob({
                     printJobId: `${claimed._id}_info`,

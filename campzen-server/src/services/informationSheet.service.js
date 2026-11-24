@@ -122,16 +122,16 @@ async function generatePlainSheet(orderData, docData, printJobData) {
 
     // Header block
     let curY = height - margin - 35;
-    page.drawText('KAMI', {
+    page.drawText('CAMPZEN', {
         x: margin + 15,
         y: curY,
-        size: 22,
+        size: 20,
         font: fontBold,
         color: colorKamiRed
     });
 
     page.drawText('ORDER INFORMATION SHEET', {
-        x: margin + 80,
+        x: margin + 120,
         y: curY + 2,
         size: 14,
         font: fontBold,
@@ -147,7 +147,7 @@ async function generatePlainSheet(orderData, docData, printJobData) {
     });
 
     // Order number pill on the right
-    const orderNo = orderData.orderNumber || `#KAMI-${orderData._id ? orderData._id.toString().slice(-6).toUpperCase() : 'PENDING'}`;
+    const orderNo = orderData.orderNumber || `#CZ-${orderData._id ? orderData._id.toString().slice(-6).toUpperCase() : 'PENDING'}`;
     const orderPillWidth = 140;
     page.drawRectangle({
         x: width - margin - orderPillWidth - 15,
@@ -251,7 +251,7 @@ async function generatePlainSheet(orderData, docData, printJobData) {
     curY = drawTableRow('Student Name', studentName, curY, false);
     curY = drawTableRow('USN / College ID', studentUSN, curY, true);
     curY = drawTableRow('Contact (Masked)', studentPhone, curY, false);
-    const collegeName = orderData.collegeName || (orderData.userId && orderData.userId.collegeName) || 'Kami Campus Center';
+    const collegeName = orderData.collegeName || (orderData.userId && orderData.userId.collegeName) || 'CampZen Campus Center';
     curY = drawTableRow('Campus / College', collegeName, curY, true);
     curY = drawTableRow('Fulfillment Method', `${fulfillment} · ${pickupCode}`, curY, false);
     curY = drawTableRow('Order Placed At', orderDate, curY, true);
@@ -285,7 +285,7 @@ async function generatePlainSheet(orderData, docData, printJobData) {
     if (Array.isArray(printJobData.finishing) && printJobData.finishing.length > 0) {
         finishingDesc = printJobData.finishing.map(f => f.type.replace(/_/g, ' ').toUpperCase()).join(', ');
     }
-    const shopName = orderData.vendorName || (orderData.vendorId && (orderData.vendorId.shopName || orderData.vendorId.name)) || 'Kami Partner Print Center';
+    const shopName = orderData.vendorName || (orderData.vendorId && (orderData.vendorId.shopName || orderData.vendorId.name)) || 'CampZen Partner Print Center';
     const studentNotes = orderData.notes ? truncateText(orderData.notes, 50) : 'None';
 
     curY = drawTableRow('Finishing Options', finishingDesc, curY, false);
@@ -329,7 +329,7 @@ async function generatePlainSheet(orderData, docData, printJobData) {
         color: colorBorder
     });
 
-    page.drawText('Kami Campus Reprographics System · Production & Identification Component', {
+    page.drawText('CampZen Campus Reprographics System by WeCove.in · Production & Identification Component', {
         x: margin + 15,
         y: footerY + 6,
         size: 7.5,
@@ -412,16 +412,16 @@ async function generateCreativeSheet(orderData, docData, printJobData) {
     });
 
     // Brand Label
-    page.drawText('KAMI', {
+    page.drawText('CAMPZEN', {
         x: margin + 25,
         y: bannerY + 45,
-        size: 26,
+        size: 22,
         font: fontBold,
         color: colorWhite
     });
 
     page.drawText('CAMPUS PRINT DISPATCH // ACADEMIC SURVIVAL EDITION', {
-        x: margin + 110,
+        x: margin + 140,
         y: bannerY + 52,
         size: 10,
         font: fontBold,
@@ -429,7 +429,7 @@ async function generateCreativeSheet(orderData, docData, printJobData) {
     });
 
     page.drawText('6+ Original Pages Personal Cover · Printed for High-Yield Performance', {
-        x: margin + 110,
+        x: margin + 140,
         y: bannerY + 38,
         size: 8,
         font: fontRegular,
@@ -437,7 +437,7 @@ async function generateCreativeSheet(orderData, docData, printJobData) {
     });
 
     // Order Badge on Banner
-    const orderNo = orderData.orderNumber || `#KAMI-${orderData._id ? orderData._id.toString().slice(-6).toUpperCase() : 'VIP'}`;
+    const orderNo = orderData.orderNumber || `#CZ-${orderData._id ? orderData._id.toString().slice(-6).toUpperCase() : 'VIP'}`;
     page.drawRectangle({
         x: width - margin - 170,
         y: bannerY + 20,
@@ -677,12 +677,12 @@ async function generateCreativeSheet(orderData, docData, printJobData) {
     if (Array.isArray(printJobData.finishing) && printJobData.finishing.length > 0) {
         finishingDesc = printJobData.finishing.map(f => f.type.replace(/_/g, ' ').toUpperCase()).join(', ');
     }
-    const shopName = orderData.vendorName || (orderData.vendorId && (orderData.vendorId.shopName || orderData.vendorId.name)) || 'Kami Campus Reprographics Partner';
+    const shopName = orderData.vendorName || (orderData.vendorId && (orderData.vendorId.shopName || orderData.vendorId.name)) || 'CampZen Campus Reprographics Partner';
     const nUpText = Number(printJobData.pagesPerSheet) > 1
         ? `${printJobData.pagesPerSheet}-Up (${(printJobData.nUpOrientation || 'horizontal').toUpperCase()})`
         : '1-Up Standard';
     const paperSpec = `${printJobData.paperSize || 'A4'} · Standard 70gsm (${printJobData.sheetOrientation || printJobData.orientation || 'portrait'})`;
-    const campusName = orderData.collegeName || (orderData.userId && orderData.userId.collegeName) || 'Kami Campus Center';
+    const campusName = orderData.collegeName || (orderData.userId && orderData.userId.collegeName) || 'CampZen Campus Center';
 
     const specRows = [
         ['Document Name', truncateText(docTitle, 55)],
@@ -739,7 +739,7 @@ async function generateCreativeSheet(orderData, docData, printJobData) {
         color: colorCharcoal
     });
 
-    page.drawText('Kami Cloud Print • Powered by Students, Built for Campus Excellence', {
+    page.drawText('CampZen Cloud Print • Powered by Students, Built for Campus Excellence (WeCove.in)', {
         x: margin + 32,
         y: footerY + 6,
         size: 7,

@@ -282,6 +282,7 @@ const getVendors = async (req, res, next) => {
 
             return {
                 ...vObj,
+                isCampZenPartner: true,
                 isKamiPartner: true,
                 orderable: true,
                 isNewPartner,
@@ -320,6 +321,7 @@ const getVendors = async (req, res, next) => {
             count: enrichedVendors.length,
             pagination: paginatedData.pagination,
             data: enrichedVendors,
+            campzenVendors: enrichedVendors,
             kamiVendors: enrichedVendors,
             googlePlaces: discoveredGooglePlaces
         });
@@ -366,6 +368,7 @@ const getVendorById = async (req, res, next) => {
             success: true,
             data: {
                 ...vendor.toObject(),
+                isCampZenPartner: true,
                 isKamiPartner: true,
                 orderable: true,
                 isNewPartner,

@@ -8,7 +8,9 @@ const {
     sendOtp,
     verifyOtp,
     forgotPassword,
-    resetPassword
+    resetPassword,
+    refreshSession,
+    logoutSession
 } = require('../controllers/auth.controller');
 const { protect } = require('../middleware/auth.middleware');
 
@@ -23,6 +25,9 @@ router.post('/login', login);
 router.post('/google', googleLogin);
 router.post('/forgot-password', forgotPassword);
 router.post('/reset-password', resetPassword);
+router.post('/refresh', refreshSession);
+router.post('/logout', logoutSession);
+router.get('/me', protect, (req, res) => res.status(200).json({ success: true, data: req.user }));
 
 // Protected Routes (Legacy authenticated phone verification)
 router.post('/send-otp', protect, sendOtp);
