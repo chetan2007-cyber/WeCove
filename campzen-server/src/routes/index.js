@@ -12,6 +12,7 @@ const categoryRoutes = require('./category.routes');
 const resaleRoutes = require('./resale.routes');
 const printableResourceRoutes = require('./printableResource.routes');
 const reportRoutes = require('./report.routes');
+const adminRoutes = require('./admin.routes');
 
 const router = express.Router();
 
@@ -29,12 +30,13 @@ router.use('/categories', categoryRoutes);
 router.use('/resale', resaleRoutes);
 router.use('/study-resources', printableResourceRoutes);
 router.use('/reports', reportRoutes);
+router.use('/admin', adminRoutes);
 
 // Base API route to verify the router is mounted correctly
 router.get('/', (req, res) => {
     res.status(200).json({
         success: true,
-        message: 'Kami API Router is working!'
+        message: 'CampZen API Router is working!'
     });
 });
 

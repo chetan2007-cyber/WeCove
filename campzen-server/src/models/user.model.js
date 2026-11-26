@@ -55,6 +55,7 @@ const userSchema = new mongoose.Schema({
     year: { type: Number, min: 1, max: 6 },
     semester: { type: Number, min: 1, max: 12 },
     isVerified: { type: Boolean, default: false },
+    mfaSecret: { type: String, select: false },
     role: {
         type: String,
         enum: ['student', 'vendor_owner', 'vendor_staff', 'provider', 'admin'],

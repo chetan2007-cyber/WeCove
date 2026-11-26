@@ -198,6 +198,18 @@ const createOrder = async (req, res, next) => {
             });
         }
 
+        // Enforce store availability & offline status check
+        if (typeof vendor.getEffectiveAvailability === 'function') {
+            const availability = vendor.getEffectiveAvailability();
+            if (!availability.isAvailable) {
+                return res.status(400).json({
+                    success: false,
+                    status: availability.status,
+                    message: availability.reason || 'This shop is currently offline and not accepting orders.'
+                });
+            }
+        }
+
         // Authoritative 1 km radius revalidation
         if (userLat !== undefined && userLng !== undefined) {
             const uLat = parseFloat(userLat);
@@ -407,7 +419,7 @@ const createOrder = async (req, res, next) => {
         const finalTotal = totalSubtotal + creatorRoyalty + platformFee + deliveryFee + calculatedSchedulingFee;
 
         // 4. Generate unique Order Number & Initialize 60-Second Editing Window
-        const orderNumber = `CZ-${Math.floor(100000 + Math.random() * 900000)}`;
+        const orderNumber = `KAMI-${Math.floor(100000 + Math.random() * 900000)}`;
         const now = new Date();
         const editWindowEndsAt = new Date(now.getTime() + 60 * 1000);
 

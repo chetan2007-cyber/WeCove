@@ -214,7 +214,7 @@ export const CampZenDownloadPage: React.FC = () => {
                 <span className="text-[#8B8580] flex items-center gap-1.5 mb-1 font-sans">
                   <HardDrive className="w-3.5 h-3.5" /> File Size
                 </span>
-                <strong className="text-[#1F1D1B] font-mono">80.2 MB (84,153,572 bytes)</strong>
+                <strong className="text-[#1F1D1B] font-mono">81.2 MB (85,123,227 bytes)</strong>
               </div>
               <div className="bg-[#FAF9F6] p-3.5 rounded-xl border border-[#6F4E37]/10">
                 <span className="text-[#8B8580] flex items-center gap-1.5 mb-1 font-sans">
@@ -227,6 +227,72 @@ export const CampZenDownloadPage: React.FC = () => {
                   <Layers className="w-3.5 h-3.5" /> Package ID
                 </span>
                 <strong className="text-[#1F1D1B] font-mono">in.wecove.campzen</strong>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* VENDOR DESKTOP APPLICATION CARD */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.98, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.4 }}
+            className="mt-8 bg-white rounded-3xl p-8 sm:p-10 border border-[#6F4E37]/15 shadow-xl shadow-[#6F4E37]/5 text-left"
+          >
+            <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 pb-8 border-b border-[#1F1D1B]/10">
+              <div className="w-24 h-24 rounded-3xl bg-[#F4EFEB] flex items-center justify-center text-4xl shadow-lg border border-[#6F4E37]/15 shrink-0">
+                🖥️
+              </div>
+              <div className="flex-1 text-center sm:text-left">
+                <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2.5 mb-2">
+                  <h2 className="text-2xl sm:text-3xl font-bold text-[#1F1D1B] tracking-tight">
+                    CampZen Vendor for Windows
+                  </h2>
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#eafaf1] text-[#27ae60] border border-[#27ae60]/20">
+                    <ShieldCheck className="w-3.5 h-3.5" /> Official Windows Installer
+                  </span>
+                </div>
+                <p className="text-sm text-[#57524D] mb-4">
+                  Native Windows desktop application for campus photocopy and print shop operators. Includes automated background order spooling, LAN Xerox photocopy machine integration, and private Company Admin management.
+                </p>
+                <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 text-xs text-[#8B8580] font-mono">
+                  <span>Version 1.0.0 (Setup)</span>
+                  <span>•</span>
+                  <span>148 KB</span>
+                  <span>•</span>
+                  <span>Windows 10 / 11 (64-bit)</span>
+                </div>
+              </div>
+            </div>
+
+            {/* VENDOR DOWNLOAD ACTION BUTTONS */}
+            <div className="pt-8 flex flex-col sm:flex-row items-center gap-4">
+              <a
+                href="/downloads/campzen-vendor-setup-v1.0.0.exe"
+                download="campzen-vendor-setup-v1.0.0.exe"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl bg-[#1F1D1B] hover:bg-[#3E3A36] text-white text-base font-semibold shadow-lg shadow-[#1F1D1B]/20 hover:shadow-xl transition-all hover:-translate-y-0.5 active:translate-y-0"
+              >
+                <Download className="w-5 h-5 text-white" />
+                <span>Download CampZen Vendor (.EXE)</span>
+              </a>
+            </div>
+
+            {/* VENDOR METADATA GRID */}
+            <div className="mt-8 pt-8 border-t border-[#1F1D1B]/10 grid grid-cols-2 md:grid-cols-4 gap-4 text-xs">
+              <div className="bg-[#FAF9F6] p-3.5 rounded-xl border border-[#6F4E37]/10">
+                <span className="text-[#8B8580] block mb-1">Supported OS</span>
+                <strong className="text-[#1F1D1B] font-mono">Windows 10 / 11</strong>
+              </div>
+              <div className="bg-[#FAF9F6] p-3.5 rounded-xl border border-[#6F4E37]/10">
+                <span className="text-[#8B8580] block mb-1">Print Integration</span>
+                <strong className="text-[#1F1D1B] font-mono">Xerox, HP, PCL6, WinSpool</strong>
+              </div>
+              <div className="bg-[#FAF9F6] p-3.5 rounded-xl border border-[#6F4E37]/10">
+                <span className="text-[#8B8580] block mb-1">Background Service</span>
+                <strong className="text-[#1F1D1B] font-mono">DPAPI Auto-Start Agent</strong>
+              </div>
+              <div className="bg-[#FAF9F6] p-3.5 rounded-xl border border-[#6F4E37]/10">
+                <span className="text-[#8B8580] block mb-1">Installer Hash</span>
+                <strong className="text-[#1F1D1B] font-mono truncate block" title="DC99964AD46E9A9BEF218D8375F6711D08387217DEEB5253E6C2994052DD096E">DC99964A...096E</strong>
               </div>
             </div>
           </motion.div>

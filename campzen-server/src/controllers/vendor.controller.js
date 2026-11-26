@@ -1,3 +1,4 @@
+const os = require('os');
 const Vendor = require('../models/vendor.model');
 const RateCard = require('../models/rateCard.model');
 const FinishingRate = require('../models/finishingRate.model');
@@ -984,6 +985,297 @@ const getFinishingRates = async (req, res, next) => {
     }
 };
 
+/**
+ * @desc    Register Windows Shop PC as an authorized Print Agent device
+ * @route   POST /api/vendor/devices/register
+ * @access  Vendor Owner, Staff, Admin
+ */
+const registerShopDevice = async (req, res, next) => {
+    try {
+        const crypto = require('crypto');
+        const vendor = await Vendor.findOne({
+            $or: [{ ownerId: req.user._id }, { staffIds: req.user._id }]
+        });
+        if (!vendor) {
+            return res.status(404).json({ success: false, message: 'Vendor shop not found for this account' });
+        }
+
+        const deviceName = req.body.deviceName || `Shop-PC-${os.hostname()}`;
+        const deviceId = `DEV-${crypto.randomBytes(6).toString('hex').toUpperCase()}`;
+        const agentToken = `agt_${crypto.randomBytes(32).toString('hex')}`;
+        const tokenHash = crypto.createHash('sha256').update(agentToken).digest('hex');
+
+        if (!vendor.registeredDevices) vendor.registeredDevices = [];
+        vendor.registeredDevices.push({
+            deviceId,
+            deviceName,
+            agentTokenHash: tokenHash,
+            registeredAt: new Date(),
+            lastSeenAt: new Date(),
+            isRevoked: false
+        });
+
+        await vendor.save();
+
+        res.status(201).json({
+            success: true,
+            message: 'Windows device registered successfully for CampZen Print Agent',
+            deviceId,
+            agentToken,
+            shopId: vendor._id,
+            shopName: vendor.name
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+/**
+ * @desc    CampZen Print Agent Heartbeat
+ * @route   POST /api/vendor/agent/heartbeat
+ * @access  Vendor / Agent Authenticated
+ */
+const agentHeartbeat = async (req, res, next) => {
+    try {
+        const { deviceId, printers, agentVersion, queueStatus } = req.body;
+        const vendor = await Vendor.findOne({
+            $or: [
+                { ownerId: req.user?._id },
+                { staffIds: req.user?._id },
+                { 'registeredDevices.deviceId': deviceId }
+            ]
+        });
+
+        if (!vendor) {
+            return res.status(404).json({ success: false, message: 'Shop not found for heartbeat' });
+        }
+
+        vendor.printAgentOnline = true;
+        vendor.lastAgentHeartbeat = new Date();
+
+        if (Array.isArray(printers) && printers.length > 0) {
+            vendor.configuredPrinters = printers.map(p => ({
+                name: p.name,
+                isDefault: Boolean(p.isDefault),
+                port: p.port || '',
+                driver: p.driver || '',
+                status: p.status || 'Ready',
+                capabilities: p.capabilities || {},
+                lastChecked: new Date()
+            }));
+            vendor.printerAvailable = true;
+        }
+
+        // Update device last seen
+        if (deviceId && Array.isArray(vendor.registeredDevices)) {
+            const dev = vendor.registeredDevices.find(d => d.deviceId === deviceId);
+            if (dev) {
+                dev.lastSeenAt = new Date();
+            }
+        }
+
+        await vendor.save();
+
+        res.status(200).json({
+            success: true,
+            acknowledged: true,
+            serverTime: new Date(),
+            shopName: vendor.name,
+            printAgentOnline: true
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+/**
+ * @desc    Get pending print jobs ready for physical release
+ * @route   GET /api/vendor/agent/pending-jobs
+ * @access  Vendor / Agent
+ */
+const getAgentPendingJobs = async (req, res, next) => {
+    try {
+        const PrintJob = require('../models/printJob.model');
+        const Order = require('../models/order.model');
+
+        const vendor = await Vendor.findOne({
+            $or: [{ ownerId: req.user._id }, { staffIds: req.user._id }]
+        });
+        if (!vendor) {
+            return res.status(404).json({ success: false, message: 'Shop not found' });
+        }
+
+        // Find orders past the 60-second edit window in ready states
+        const now = new Date();
+        const pendingJobs = await PrintJob.find({
+            vendorId: vendor._id,
+            status: { $in: ['QUEUED', 'READY_FOR_AGENT', 'PROCESSING'] }
+        })
+            .populate('orderId')
+            .populate('documentId')
+            .sort({ createdAt: 1 })
+            .limit(10);
+
+        // Filter out orders still inside the 60s edit window
+        const eligibleJobs = pendingJobs.filter(pj => {
+            if (!pj.orderId) return false;
+            if (pj.orderId.editWindowEndsAt && new Date(pj.orderId.editWindowEndsAt) > now) {
+                return false; // Still editable by student!
+            }
+            return true;
+        });
+
+        res.status(200).json({
+            success: true,
+            count: eligibleJobs.length,
+            jobs: eligibleJobs
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+/**
+ * @desc    Update Print Job Status from Windows Agent
+ * @route   POST /api/vendor/agent/jobs/:id/status
+ * @access  Vendor / Agent
+ */
+const updateAgentJobStatus = async (req, res, next) => {
+    try {
+        const PrintJob = require('../models/printJob.model');
+        const Order = require('../models/order.model');
+        const { status, spoolerJobId, printerName, error: errDetail } = req.body;
+
+        const job = await PrintJob.findById(req.params.id);
+        if (!job) {
+            return res.status(404).json({ success: false, message: 'Print job not found' });
+        }
+
+        if (status) job.status = status;
+        if (spoolerJobId) job.spoolerJobId = spoolerJobId;
+        if (printerName) job.printerName = printerName;
+        if (errDetail) job.errorMessage = errDetail;
+
+        await job.save();
+
+        if (status === 'SPOOLED' || status === 'COMPLETED') {
+            await Order.findByIdAndUpdate(job.orderId, { status: 'PRINTING' });
+        }
+
+        res.status(200).json({ success: true, job });
+    } catch (error) {
+        next(error);
+    }
+};
+
+/**
+ * @desc    Toggle Shop Availability (Emergency Pause / Manual Close)
+ * @route   POST /api/vendor/availability/toggle
+ * @access  Vendor Owner, Admin
+ */
+const toggleShopAvailability = async (req, res, next) => {
+    try {
+        const { isTemporarilyPaused, isManuallyClosed } = req.body;
+        const vendor = await Vendor.findOne({
+            $or: [{ ownerId: req.user._id }, { staffIds: req.user._id }]
+        });
+        if (!vendor) {
+            return res.status(404).json({ success: false, message: 'Shop not found' });
+        }
+
+        if (isTemporarilyPaused !== undefined) vendor.isTemporarilyPaused = Boolean(isTemporarilyPaused);
+        if (isManuallyClosed !== undefined) vendor.isManuallyClosed = Boolean(isManuallyClosed);
+
+        await vendor.save();
+
+        const availability = vendor.getEffectiveAvailability();
+        res.status(200).json({
+            success: true,
+            message: 'Shop availability updated',
+            isTemporarilyPaused: vendor.isTemporarilyPaused,
+            isManuallyClosed: vendor.isManuallyClosed,
+            effectiveStatus: availability.status,
+            isAvailableForOrders: availability.isAvailable,
+            reason: availability.reason
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+/**
+ * @desc    Update Weekly Business Hours
+ * @route   PUT /api/vendor/business-hours
+ * @access  Vendor Owner, Admin
+ */
+const updateBusinessHours = async (req, res, next) => {
+    try {
+        const { businessHours, storeTimezone, holidayDates } = req.body;
+        const vendor = await Vendor.findOne({
+            $or: [{ ownerId: req.user._id }, { staffIds: req.user._id }]
+        });
+        if (!vendor) {
+            return res.status(404).json({ success: false, message: 'Shop not found' });
+        }
+
+        if (businessHours) vendor.businessHours = { ...vendor.businessHours, ...businessHours };
+        if (storeTimezone) vendor.storeTimezone = storeTimezone;
+        if (holidayDates) vendor.holidayDates = holidayDates;
+
+        await vendor.save();
+
+        res.status(200).json({
+            success: true,
+            message: 'Business hours updated successfully',
+            businessHours: vendor.businessHours,
+            storeTimezone: vendor.storeTimezone
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+/**
+ * @desc    Save Configured Xerox / Network Printers
+ * @route   POST /api/vendor/printers
+ * @access  Vendor Owner, Staff, Admin
+ */
+const saveConfiguredPrinters = async (req, res, next) => {
+    try {
+        const { printers } = req.body;
+        if (!Array.isArray(printers)) {
+            return res.status(400).json({ success: false, message: 'Printers array is required' });
+        }
+
+        const vendor = await Vendor.findOne({
+            $or: [{ ownerId: req.user._id }, { staffIds: req.user._id }]
+        });
+        if (!vendor) {
+            return res.status(404).json({ success: false, message: 'Shop not found' });
+        }
+
+        vendor.configuredPrinters = printers.map(p => ({
+            name: p.name,
+            isDefault: Boolean(p.isDefault),
+            port: p.port || '',
+            driver: p.driver || '',
+            status: p.status || 'Ready',
+            capabilities: p.capabilities || {},
+            lastChecked: new Date()
+        }));
+
+        await vendor.save();
+
+        res.status(200).json({
+            success: true,
+            message: 'Printers updated successfully',
+            printers: vendor.configuredPrinters
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
 module.exports = {
     createVendor,
     getMyVendor,
@@ -1000,5 +1292,12 @@ module.exports = {
     deleteFinishingRate,
     getFinishingRates,
     calculateDistanceMeters,
-    isShopOpenNow
+    isShopOpenNow,
+    registerShopDevice,
+    agentHeartbeat,
+    getAgentPendingJobs,
+    updateAgentJobStatus,
+    toggleShopAvailability,
+    updateBusinessHours,
+    saveConfiguredPrinters
 };
